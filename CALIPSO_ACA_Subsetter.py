@@ -43,5 +43,8 @@ mapHeight = 1800
 # create empty numpy array based on NEO map dimensions
 aca_map = np.zeros((mapHeight, mapWidth))
 
-# use getxy function from neoScrubber.py to figure out where the ACA window should live in full array
-homeLocation = getxy(left, top)
+# use getxy function to figure out area to pull from NEO map
+matrixTopLeft = getxy(left, top)
+matrixTopRight = getxy(right, top)
+matrixBottomLeft = getxy(left, bottom)
+matrixBottomRight = getxy(right, bottom)
