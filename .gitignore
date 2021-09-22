@@ -1,0 +1,46 @@
+
+*.pdf
+
+*.csv
+
+Allen Coral Atlas/Test-Area-20210908133951/
+
+Allen Coral Atlas/Northern-Caribbean--Florida----Bahamas-20201125220500/
+
+bhs_adm0_gdams_2009/
+
+bhs_adm1_gdams_2009/
+
+WRIdatasets/Reefs/
+
+wcmc/
+
+CALIPSODataFeed/
+
+world_unepwcmc_coralreefs2010/
+
+.idea/inspectionProfiles/
+
+.idea/
+
+WRIdatasets/
+
+Allen Coral Atlas/
+
+Reef_GIS/geoPandasTest.py
+
+geo_output.csv.zip
+
+geo_output.hyper
+
+Reef_GIS/
+
+test_export.csv.zip
+
+reefSatelliteScrubber.py
+
+.DS_Store
+
+README.md
+
+__pycache__/
