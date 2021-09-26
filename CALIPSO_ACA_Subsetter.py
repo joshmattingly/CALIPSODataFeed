@@ -9,10 +9,10 @@ from skimage import io, color
 from neoScrubber import getlonglat, getxy
 
 # coordinates based on CALIPSO area selector
-top = 28.482055664063
-left = -86.149291992188
-right = -64.000854492188
-bottom = 15.825805664063
+top = 27.416725158691
+left = -79.488143920898
+right = -76.763534545898
+bottom = 24.296607971191
 
 top_left = (top, left)
 top_right = (top, right)
@@ -48,3 +48,5 @@ matrixTopLeft = getxy(left, top)
 matrixTopRight = getxy(right, top)
 matrixBottomLeft = getxy(left, bottom)
 matrixBottomRight = getxy(right, bottom)
+
+mapSlice = [matrixTopLeft, matrixTopRight, matrixBottomLeft, matrixBottomRight]

@@ -9,17 +9,28 @@ from skimage import io, color
 
 # https://stackoverflow.com/questions/14034455/translating-lat-long-to-actual-screen-x-y-coordinates-on-a-equirectangular-map
 
-def getxy(lng, lat):
-    screenX = ((lng + 180) * (mapWidth / 360))
-    screenY = (((lat * -1) + 90) * (mapHeight / 180))
-    return round(screenY), round(screenX)
+# test
+mapWidth = 3600
+mapHeight = 1800
+
+lat_min = -180
+lng_min = -90
+
+lng_range = 180
+lat_range = 360
 
 
-def getlonglat(x, y):
-    lng = (-180 * mapWidth + 360 * x) / mapWidth
-    lat = (90 * mapHeight - 180 * y)/mapHeight
+def getxy(lng, lat, mapWidth = 36000, mapHeight = 18000):
+    screen_y = (((lng - lng_min) * mapHeight) + lng_range)
+    screen_x = (((lat - lat_min) * mapWidth) + lat_range)
+    return round(screen_y), round(screen_x)
 
-    return lat, lng
+
+def getlonglat(x, y, mapWidth = 36000, mapHeight = 18000):
+    new_lng = ((x * lng_range) / mapHeight) + lng_min
+    new_lat = ((x * lat_range) / mapWidth) + lat_min
+
+    return new_lat, new_lng
 
 
 def getmapslice(longs, lats):
@@ -30,10 +41,6 @@ def getmapslice(longs, lats):
     return [topLeft, topRight, bottomLeft, bottomRight]
 
 
-# test
-mapWidth = 3600
-mapHeight = 1800
-
 x, y = getxy(41.9495103, -87.7332445)
 # Out[14]: (923, 841)
 lng, lat = getlonglat(x, y)
@@ -41,8 +48,9 @@ lng, lat = getlonglat(x, y)
 
 img = Image\
     .open('/Users/josh/Google Drive/Georgia Tech Notes/Capstone/data/NEO/MY1DMM_CHLORA_2021-08-01_rgb_3600x1800.TIFF')
+img = img.resize((36000, 18000))
 img_array = np.asarray(img)
-plt.imshow(img_array)
+# plt.imshow(img_array)
 mapHeight, mapWidth = img_array.shape
 
 img_array.shape
@@ -51,7 +59,7 @@ img_array.shape
 longs = [26.466407775879, 24.368019104004]
 lats = [-82.409477233887, -79.629936218262]
 
-coords = getmapslice(longs, lats)
+coords = getmapslice(longs, lats, mapWidth, mapHeight)
 # Out[40]: [(976, 635), (1004, 635), (976, 656), (1004, 656)]
 
 map_window = img_array[coords[0][1]:coords[2][1], coords[0][0]:coords[1][0]]
