@@ -4,15 +4,30 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 import cv2
-from cv2 import matchTemplate as cv2m
 
 img = cv2.imread('/Users/josh/Google Drive/Georgia Tech Notes/Capstone/data/stripped_down.png')
 gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-edges = cv2.Canny(gray, 75, 150)
+# edges = cv2.Canny(gray, 75, 150)
 
+# find the bounding box
+# https://stackoverflow.com/questions/55169645/square-detection-in-image
+thresh = cv2.threshold(gray, 160, 255, cv2.THRESH_BINARY_INV)[1]
+border = np.where(thresh == 0)
 
+# find the top left and bottom right corners of the bounding box
+
+# shift indicies to start one pixel in from box
+top_thickness = 5
+bottom_thickness = 6
+top_left = (np.min(border[0])+top_thickness, np.min(border[1])+top_thickness)
+bottom_right = (np.max(border[0])-bottom_thickness, np.max(border[1])-bottom_thickness)
+
+cropped = gray[top_left[0]:bottom_right[0], top_left[1]:bottom_right[1]]
+plt.imshow(cropped)
+'''
 # TODO: find top left
 # finding the top left corner will let the cropper know where the lat-long anchor begins.
 corner = np.where(gray == 147)
 # gray[34:, 41:]
 img_cropped = gray[corner[0][0]+1:, corner[1][0]+1:]
+'''
