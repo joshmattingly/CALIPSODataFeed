@@ -1,17 +1,16 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import seaborn as sns
-
 import cv2
 
-img = cv2.imread('/Users/josh/Google Drive/Georgia Tech Notes/Capstone/data/stripped_down.png')
+img = cv2.imread('/Users/josh/Google Drive/Georgia Tech Notes/Capstone/data/florida.png')
 gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 # edges = cv2.Canny(gray, 75, 150)
 
 # find the bounding box
 # https://stackoverflow.com/questions/55169645/square-detection-in-image
-thresh = cv2.threshold(gray, 160, 255, cv2.THRESH_BINARY_INV)[1]
+thresh = cv2.threshold(gray, 100, 255, cv2.THRESH_TOZERO_INV)[1]
+plt.imshow(thresh)
 border = np.where(thresh == 0)
 
 # find the top left and bottom right corners of the bounding box
@@ -31,3 +30,21 @@ corner = np.where(gray == 147)
 # gray[34:, 41:]
 img_cropped = gray[corner[0][0]+1:, corner[1][0]+1:]
 '''
+
+y, x = cropped.shape
+
+# test points from CALIPSO_ACA_Subsetter
+top = 26.405982971191
+left = -82.882919311523
+right = -79.850692749023
+bottom = 24.208717346191
+
+long_increment = (bottom - top) / y
+lat_increment = (right - left) / x
+
+lat_range = list(np.arange(left, right, lat_increment))
+long_range = list(np.arange(top, bottom, long_increment))
+
+df = pd.DataFrame(cropped, index=long_range, columns=lat_range)
+df = pd.melt(df.reset_index(), id_vars='index')
+df.columns = ['Long', 'Lat', 'Value']

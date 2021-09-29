@@ -6,13 +6,12 @@ import seaborn as sns
 from PIL import Image
 from skimage import io, color
 
-from neoScrubber import getlonglat, getxy
 
 # coordinates based on CALIPSO area selector
-top = 27.416725158691
-left = -79.488143920898
-right = -76.763534545898
-bottom = 24.296607971191
+top = 26.405982971191
+left = -82.882919311523
+right = -79.850692749023
+bottom = 24.208717346191
 
 top_left = (top, left)
 top_right = (top, right)
@@ -25,28 +24,3 @@ print(top_right)
 print(bottom_right)
 print(bottom_left)
 print(top_left)
-
-# import the ACA image and convert to 1D grayscale, casting values to integers
-img = Image \
-    .open('/Users/josh/Google Drive/Georgia Tech Notes/Capstone/data/Screen Shot 2021-09-22 at 7.28.06 AM.png')
-img_array = np.asarray(img)
-img_gray = np.uint8(color.rgb2gray(color.rgba2rgb(img_array))*255)
-plt.imshow(img_gray)
-
-img_gray.shape
-# Out[15]: (393, 632)
-
-# based on NEO full map
-mapWidth = 3600
-mapHeight = 1800
-
-# create empty numpy array based on NEO map dimensions
-aca_map = np.zeros((mapHeight, mapWidth))
-
-# use getxy function to figure out area to pull from NEO map
-matrixTopLeft = getxy(left, top)
-matrixTopRight = getxy(right, top)
-matrixBottomLeft = getxy(left, bottom)
-matrixBottomRight = getxy(right, bottom)
-
-mapSlice = [matrixTopLeft, matrixTopRight, matrixBottomLeft, matrixBottomRight]
