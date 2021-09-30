@@ -3,8 +3,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 import cv2
 
-img = cv2.imread('/Users/josh/Google Drive/Georgia Tech Notes/Capstone/data/florida.png')
+img = cv2.imread('/Users/josh/Google Drive/Georgia Tech Notes/Capstone/data/coral_snapshot.png')
 gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+gray[gray == 19] = 0
+gray[gray > 0] = 255
 # edges = cv2.Canny(gray, 75, 150)
 
 # find the bounding box
