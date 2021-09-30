@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-from imageCropper import process_image
+from imageCropper import process_images
+
 
 

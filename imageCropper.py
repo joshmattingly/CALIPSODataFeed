@@ -6,7 +6,7 @@ import os
 import re
 
 
-def process_image(dir, top, left, bottom, right):
+def process_images(dir, top, left, bottom, right):
     dir_listing = os.listdir(dir)
     df = None
     for file in dir_listing:
@@ -16,7 +16,7 @@ def process_image(dir, top, left, bottom, right):
             img = cv2.imread('{}/{}'.format(dir, file))
             gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
             gray[gray == 19] = 0
-            gray[gray > 0] = 1
+            # gray[gray > 0] = 1
             thresh = cv2.threshold(gray, 100, 255, cv2.THRESH_TOZERO_INV)[1]
             border = np.where(thresh == 0)
             top_thickness = 5
@@ -32,18 +32,17 @@ def process_image(dir, top, left, bottom, right):
             if df is None:
                 df = pd.DataFrame(cropped, index=long_range, columns=lat_range)
                 df = pd.melt(df.reset_index(), id_vars='index')
-                df.columns = ['Long', 'Lat', 'Bleaching']
+                df.columns = ['Long', 'Lat', 'temp_anom']
                 df['Date'] = pd.to_datetime(datestamp, format="%d%b%Y")
             else:
-                print(cropped.shape, len(long_range), len(lat_range))
                 while cropped.shape[1] < len(lat_range):
                     lat_range.pop()
                 df_temp = pd.DataFrame(cropped, index=long_range, columns=lat_range)
                 df_temp = pd.melt(df_temp.reset_index(), id_vars='index')
-                df_temp.columns = ['Long', 'Lat', 'Bleaching']
+                df_temp.columns = ['Long', 'Lat', 'temp_anom']
                 df_temp['Date'] = pd.to_datetime(datestamp, format="%d%b%Y")
                 df = pd.concat([df, df_temp])
-    return df
+    return df[df.temp_anom > 0]
 
 
 if __name__ == "__main__":
@@ -54,4 +53,4 @@ if __name__ == "__main__":
     right = -79.850692749023
     bottom = 24.208717346191
 
-    df_matrix = process_image(dir, top, left, bottom, right)
+    df_anom = process_image(dir, top, left, bottom, right)
