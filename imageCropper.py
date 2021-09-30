@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import cv2
 
 
-img = cv2.imread('/Users/josh/Google Drive/Georgia Tech Notes/Capstone/data/ACA_DHW/DHW21Oct2019.png')
+img = cv2.imread('/Users/josh/Google Drive/Georgia Tech Notes/Capstone/data/temp_anom/temp_anom_21Nov2019.png')
 # img = cv2.imread('/Users/josh/Google Drive/Georgia Tech Notes/Capstone/data/coral_snapshot.png')
 gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 gray[gray == 19] = 0
