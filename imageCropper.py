@@ -6,7 +6,7 @@ import cv2
 img = cv2.imread('/Users/josh/Google Drive/Georgia Tech Notes/Capstone/data/coral_snapshot.png')
 gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 gray[gray == 19] = 0
-gray[gray > 0] = 255
+gray[gray > 0] = 1
 # edges = cv2.Canny(gray, 75, 150)
 
 # find the bounding box
@@ -49,4 +49,4 @@ long_range = list(np.arange(top, bottom, long_increment))
 
 df = pd.DataFrame(cropped, index=long_range, columns=lat_range)
 df = pd.melt(df.reset_index(), id_vars='index')
-df.columns = ['Long', 'Lat', 'Value']
+df.columns = ['Long', 'Lat', 'Coral/Fungi']
