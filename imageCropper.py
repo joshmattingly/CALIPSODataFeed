@@ -3,7 +3,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 import cv2
 
-img = cv2.imread('/Users/josh/Google Drive/Georgia Tech Notes/Capstone/data/coral_snapshot.png')
+
+img = cv2.imread('/Users/josh/Google Drive/Georgia Tech Notes/Capstone/data/ACA_DHW/DHW21Oct2019.png')
+# img = cv2.imread('/Users/josh/Google Drive/Georgia Tech Notes/Capstone/data/coral_snapshot.png')
 gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 gray[gray == 19] = 0
 gray[gray > 0] = 1
@@ -49,4 +51,5 @@ long_range = list(np.arange(top, bottom, long_increment))
 
 df = pd.DataFrame(cropped, index=long_range, columns=lat_range)
 df = pd.melt(df.reset_index(), id_vars='index')
-df.columns = ['Long', 'Lat', 'Coral/Fungi']
+df.columns = ['Long', 'Lat', 'Bleaching']
+# df.columns = ['Long', 'Lat', 'Coral/Fungi']
