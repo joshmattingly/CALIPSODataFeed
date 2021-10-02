@@ -6,7 +6,7 @@ import os
 import re
 
 
-def process_images(dir, top, left, bottom, right, coral=False):
+def process_images(dir, column, top, left, bottom, right, coral=False):
     dir_listing = os.listdir(dir)
     df = None
     for file in dir_listing:
@@ -34,25 +34,27 @@ def process_images(dir, top, left, bottom, right, coral=False):
             if df is None:
                 df = pd.DataFrame(cropped, index=long_range, columns=lat_range)
                 df = pd.melt(df.reset_index(), id_vars='index')
-                df.columns = ['Long', 'Lat', 'var']
+                df.columns = ['Long', 'Lat', column]
                 df['Date'] = pd.to_datetime(datestamp, format="%d%b%Y")
             else:
                 while cropped.shape[1] < len(lat_range):
                     lat_range.pop()
                 df_temp = pd.DataFrame(cropped, index=long_range, columns=lat_range)
                 df_temp = pd.melt(df_temp.reset_index(), id_vars='index')
-                df_temp.columns = ['Long', 'Lat', 'var']
+                df_temp.columns = ['Long', 'Lat', column]
                 df_temp['Date'] = pd.to_datetime(datestamp, format="%d%b%Y")
                 df = pd.concat([df, df_temp])
-    return df[df['var'] > 0]
+    return df
 
 
 if __name__ == "__main__":
     # test points from CALIPSO_ACA_Subsetter
-    dir = '/Users/josh/Google Drive/Georgia Tech Notes/Capstone/data/temp_anom'
+    dir_anom = '/Users/josh/Google Drive/Georgia Tech Notes/Capstone/data/temp_anom'
+    dir_coral = '/Users/josh/Google Drive/Georgia Tech Notes/Capstone/data/coral_snapshot'
     top = 26.405982971191
     left = -82.882919311523
     right = -79.850692749023
     bottom = 24.208717346191
 
-    df_anom = process_images(dir, top, left, bottom, right)
+    df_anom = process_images(dir_anom, 'temp_anom', top, left, bottom, right, False)
+    df_coral = process_images(dir_coral, 'coral_fungi', top, left, bottom, right, True)
