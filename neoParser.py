@@ -37,7 +37,7 @@ def process_neo(dir, bound_top, bound_left, bound_bottom, bound_right,
                 df_temp = df_temp[df_temp['Long'].between(bound_bottom, bound_top)]
                 df_temp = df_temp[df_temp['Lat'].between(bound_left, bound_right)]
                 df = pd.concat([df, df_temp])
-    return df.reset_index()
+    return df[df.chlorophyll > 0].reset_index()
 
 
 if __name__ == "__main__":

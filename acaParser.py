@@ -19,7 +19,7 @@ def process_images(dir, column, top, left, bottom, right, coral=False):
             # if detecting coral/fungi, flag sets response to boolean
             if coral:
                 gray[gray > 0] = 1
-            thresh = cv2.threshold(gray, 100, 255, cv2.THRESH_TOZERO_INV)[1]
+            thresh = cv2.threshold(gray, 100, 200, cv2.THRESH_TOZERO_INV)[1]
             border = np.where(thresh == 0)
             top_thickness = 5
             bottom_thickness = 6
