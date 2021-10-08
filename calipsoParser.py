@@ -29,7 +29,6 @@ def process_sat(root):
                 df_back = pd.DataFrame(np.array(f['Perpendicular_Attenuated_Backscatter_532']))
                 df_combined = pd.concat([df_temp, df_back.iloc[:, -5:]], axis=1)
                 df = pd.concat([df, df_combined])
-    df.columns = ['Long', 'Lat', 'Date', 'Land_Water_Mask', '578', '579', '580', '581', '582']
     return df
 
 
