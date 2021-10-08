@@ -4,13 +4,12 @@ from pandas.tseries.offsets import MonthBegin
 from acaParser import process_images
 from neoParser import process_neo
 from calipsoParser import process_sat
-from translateCoords import getlonglat, getxy
 import geopandas
 import numpy as np
-from sqlalchemy import create_engine
 
-import matplotlib.pyplot as plt
-import utm
+import os
+import sqlite3
+
 
 dir_anom = '/Users/josh/Google Drive/Georgia Tech Notes/Capstone/data/temp_anom'
 dir_coral = '/Users/josh/Google Drive/Georgia Tech Notes/Capstone/data/coral_snapshot'
@@ -51,7 +50,24 @@ gdf_coral = create_gdf(df_coral)
 gdf_neo = create_gdf(df_neo)
 gdf_sat = create_gdf(df_sat)
 
-engine = create_engine("postgresql://PostGIS:5432/josh")
-gdf_coral.to_postgis("coral", engine)
-gdf_anom.to_postgis("temp_anom", engine)
-gdf_anom.to_postgis("temp_anom", engine)
+gdf_anom.to_csv('temp_anom.csv')
+gdf_coral.to_csv('coral.csv')
+gdf_neo.to_csv('neo_data.csv')
+gdf_sat.to_csv('calipso.csv')
+
+'''df = gdf_coral.drop(['geometry'], axis=1)
+
+DB_PATH = os.path.join(os.getcwd(), 'gotech.sqlite')
+with sqlite3.connect(DB_PATH) as conn:
+    df.to_sql('coral_locations', conn, if_exists='replace', index=False)
+
+with sqlite3.connect(DB_PATH) as conn:
+    conn.enable_load_extension(True)
+    conn.load_extension("mod_spatialite")
+    # conn.execute("SELECT InitSpatialMetaData(1);")
+    conn.execute(
+        """
+        SELECT AddGeometryColumn('coral_locations', 'the_geom', 4326, 'XY', 1);
+        """
+    )
+'''
