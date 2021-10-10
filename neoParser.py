@@ -23,14 +23,14 @@ def process_neo(dir, bound_top, bound_left, bound_bottom, bound_right,
             if df is None:
                 df = pd.DataFrame(ds['chlor_a'][:].data, index=long_range, columns=lat_range)
                 df = pd.melt(df.reset_index(), id_vars='index')
-                df.columns = ['Long', 'Lat', 'chlorophyll']
+                df.columns = ['Lat', 'Long', 'chlorophyll']
                 df['Date'] = pd.to_datetime(datestamp, format="%d%b%Y")
                 df = df[df['Long'].between(bound_bottom, bound_top)]
                 df = df[df['Lat'].between(bound_left, bound_right)]
             else:
                 df_temp = pd.DataFrame(ds['chlor_a'][:].data, index=long_range, columns=lat_range)
                 df_temp = pd.melt(df_temp.reset_index(), id_vars='index')
-                df_temp.columns = ['Long', 'Lat', 'chlorophyll']
+                df_temp.columns = ['Lat', 'Long', 'chlorophyll']
                 df_temp['Date'] = pd.to_datetime(datestamp, format="%d%b%Y")
                 df_temp = df_temp[df_temp['Long'].between(bound_bottom, bound_top)]
                 df_temp = df_temp[df_temp['Lat'].between(bound_left, bound_right)]

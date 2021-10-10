@@ -9,7 +9,8 @@ import numpy as np
 
 import os
 import sqlite3
-
+from scipy.spatial import cKDTree
+from shapely.geometry import Point
 
 dir_anom = '/Users/josh/Google Drive/Georgia Tech Notes/Capstone/data/temp_anom'
 dir_coral = '/Users/josh/Google Drive/Georgia Tech Notes/Capstone/data/coral_snapshot'
@@ -50,10 +51,33 @@ gdf_coral = create_gdf(df_coral)
 gdf_neo = create_gdf(df_neo)
 gdf_sat = create_gdf(df_sat)
 
-gdf_anom.to_csv('temp_anom.csv')
-gdf_coral.to_csv('coral.csv')
-gdf_neo.to_csv('neo_data.csv')
-gdf_sat.to_csv('calipso.csv')
+# gdf_anom.to_csv('temp_anom.csv')
+# gdf_coral.to_csv('coral.csv')
+# gdf_neo.to_csv('neo_data.csv')
+# gdf_sat.to_csv('calipso.csv')
+
+
+# https://gis.stackexchange.com/questions/222315/geopandas-find-nearest-point-in-other-dataframe
+def ckdnearest(gdA, gdB):
+
+    nA = np.array(list(gdA.geometry.apply(lambda x: (x.x, x.y))))
+    nB = np.array(list(gdB.geometry.apply(lambda x: (x.x, x.y))))
+    btree = cKDTree(nB)
+    dist, idx = btree.query(nA, k=1)
+    gdB_nearest = gdB.iloc[idx].drop(columns="geometry").reset_index(drop=True)
+    gdf = pd.concat(
+        [
+            gdA.reset_index(drop=True),
+            gdB_nearest,
+            pd.Series(dist, name='dist')
+        ],
+        axis=1)
+
+    return gdf
+
+
+coral_sat_match = ckdnearest(gdf_coral, gdf_sat)
+sat_neo_match = ckdnearest(gdf_sat, gdf_neo)
 
 '''df = gdf_coral.drop(['geometry'], axis=1)
 

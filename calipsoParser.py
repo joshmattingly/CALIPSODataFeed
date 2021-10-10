@@ -13,16 +13,16 @@ def process_sat(root):
             f = h5py.File('{}{}'.format(root, file), 'r')
 
             if df is None:
-                df = pd.DataFrame({'Lat': np.array(f['Latitude']).flatten(),
-                                   'Long': np.array(f['Longitude']).flatten(),
+                df = pd.DataFrame({'Long': np.array(f['Longitude']).flatten(),
+                                   'Lat': np.array(f['Latitude']).flatten(),
                                    'Date': pd.to_datetime(np.array(f['Profile_UTC_Time']).flatten(), format='%y%m%d'),
                                    'Land_Water_Mask': np.array(f['Land_Water_Mask']).flatten()
                                    })
                 df_back = pd.DataFrame(np.array(f['Perpendicular_Attenuated_Backscatter_532']))
                 df = pd.concat([df, df_back.iloc[:, -5:]], axis=1)
             else:
-                df_temp = pd.DataFrame({'Lat': np.array(f['Latitude']).flatten(),
-                                        'Long': np.array(f['Longitude']).flatten(),
+                df_temp = pd.DataFrame({'Long': np.array(f['Longitude']).flatten(),
+                                        'Lat': np.array(f['Latitude']).flatten(),
                                         'Date': pd.to_datetime(np.array(f['Profile_UTC_Time']).flatten(), format='%y%m%d'),
                                         'Land_Water_Mask': np.array(f['Land_Water_Mask']).flatten()
                                         })

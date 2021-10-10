@@ -33,14 +33,14 @@ def process_images(dir, column, top, left, bottom, right, coral=False):
             if df is None:
                 df = pd.DataFrame(cropped, index=long_range, columns=lat_range)
                 df = pd.melt(df.reset_index(), id_vars='index')
-                df.columns = ['Long', 'Lat', column]
+                df.columns = ['Lat', 'Long', column]
                 df['Date'] = pd.to_datetime(datestamp, format="%d%b%Y")
             else:
                 while cropped.shape[1] < len(lat_range):
                     lat_range.pop()
                 df_temp = pd.DataFrame(cropped, index=long_range, columns=lat_range)
                 df_temp = pd.melt(df_temp.reset_index(), id_vars='index')
-                df_temp.columns = ['Long', 'Lat', column]
+                df_temp.columns = ['Lat', 'Long', column]
                 df_temp['Date'] = pd.to_datetime(datestamp, format="%d%b%Y")
                 df = pd.concat([df, df_temp])
     return df
