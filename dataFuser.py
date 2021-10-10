@@ -85,7 +85,7 @@ gdf_rock = create_gdf(df_rock)
 gdf_rubble = create_gdf(df_rubble)
 gdf_sand = create_gdf(df_sand)
 gdf_reef_slope = create_gdf(df_reef_slope)
-gdf_sheltered_reef_slop = create_gdf(df_sheltered_reef_slope)
+gdf_sheltered_reef_slope = create_gdf(df_sheltered_reef_slope)
 gdf_outer_reef_flat = create_gdf(df_outer_reef_flat)
 gdf_reef_crest = create_gdf(df_reef_crest)
 gdf_inner_reef_flat = create_gdf(df_inner_reef_flat)
@@ -119,6 +119,11 @@ def ckdnearest(gdA, gdB):
     return gdf
 
 
-coral_sat_match = ckdnearest(gdf_coral, gdf_sat)
-coral_sat_neo_match = ckdnearest(coral_sat_match, gdf_neo)
-all_match = ckdnearest(coral_sat_neo_match, gdf_anom)
+all_match = ckdnearest(gdf_coral, gdf_sat)
+
+gdf_list = [gdf_anom, gdf_neo, gdf_seagrass, gdf_rock, gdf_rubble, gdf_sand, gdf_reef_slope,
+            gdf_sheltered_reef_slope, gdf_outer_reef_flat, gdf_reef_crest, gdf_inner_reef_flat,
+            gdf_terrestrial_reef_flat, gdf_plateau, gdf_backreef, gdf_shallow_lagoon, gdf_deep_lagoon]
+
+for gdf in gdf_list:
+    all_match = ckdnearest(all_match, gdf)
