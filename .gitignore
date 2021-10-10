@@ -90,3 +90,5 @@ gotech_v2.sqlite
 gotech.sqlite.zip
 
 geo_align.R
+
+*.png
