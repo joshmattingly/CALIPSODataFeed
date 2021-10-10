@@ -77,21 +77,5 @@ def ckdnearest(gdA, gdB):
 
 
 coral_sat_match = ckdnearest(gdf_coral, gdf_sat)
-sat_neo_match = ckdnearest(gdf_sat, gdf_neo)
-
-'''df = gdf_coral.drop(['geometry'], axis=1)
-
-DB_PATH = os.path.join(os.getcwd(), 'gotech.sqlite')
-with sqlite3.connect(DB_PATH) as conn:
-    df.to_sql('coral_locations', conn, if_exists='replace', index=False)
-
-with sqlite3.connect(DB_PATH) as conn:
-    conn.enable_load_extension(True)
-    conn.load_extension("mod_spatialite")
-    # conn.execute("SELECT InitSpatialMetaData(1);")
-    conn.execute(
-        """
-        SELECT AddGeometryColumn('coral_locations', 'the_geom', 4326, 'XY', 1);
-        """
-    )
-'''
+coral_sat_neo_match = ckdnearest(coral_sat_match, gdf_neo)
+all_match = ckdnearest(coral_sat_neo_match, gdf_anom)
