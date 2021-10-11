@@ -16,30 +16,28 @@ def process_neo(dir, bound_top, bound_left, bound_bottom, bound_right,
             ds = nc.Dataset('{}/{}'.format(dir, file))
             datestamp = re.findall("(\d{2}\D{3}\d{4})", file)[0]
 
-            lat_increment = ds.latitude_step
-            long_increment = ds.longitude_step
-            lat_range = list(np.arange(left, right, lat_increment))
-            long_range = list(np.arange(bottom, top, long_increment))
+            lat_range = list(ds['lat'][:])
+            long_range = list(ds['lon'][:])
             if df is None:
-                df = pd.DataFrame(ds['chlor_a'][:].data, index=long_range, columns=lat_range)
+                df = pd.DataFrame(ds['chlor_a'][:].data, index=lat_range, columns=long_range)
                 df = pd.melt(df.reset_index(), id_vars='index')
                 df.columns = ['Lat', 'Long', 'chlorophyll']
                 df['Date'] = pd.to_datetime(datestamp, format="%d%b%Y")
-                df = df[df['Long'].between(bound_bottom, bound_top)]
-                df = df[df['Lat'].between(bound_left, bound_right)]
+                df = df[df['Long'].between(bound_left, bound_right)]
+                df = df[df['Lat'].between(bound_bottom, bound_top)]
             else:
-                df_temp = pd.DataFrame(ds['chlor_a'][:].data, index=long_range, columns=lat_range)
+                df_temp = pd.DataFrame(ds['chlor_a'][:].data, index=lat_range, columns=long_range)
                 df_temp = pd.melt(df_temp.reset_index(), id_vars='index')
                 df_temp.columns = ['Lat', 'Long', 'chlorophyll']
                 df_temp['Date'] = pd.to_datetime(datestamp, format="%d%b%Y")
-                df_temp = df_temp[df_temp['Long'].between(bound_bottom, bound_top)]
-                df_temp = df_temp[df_temp['Lat'].between(bound_left, bound_right)]
+                df_temp = df_temp[df_temp['Long'].between(bound_left, bound_right)]
+                df_temp = df_temp[df_temp['Lat'].between(bound_bottom, bound_top)]
                 df = pd.concat([df, df_temp])
-    return df[df.chlorophyll > 0].reset_index()
+    return df.reset_index()
 
 
 if __name__ == "__main__":
-    dir_neo = '/Users/josh/Google Drive/Georgia Tech Notes/Capstone/data/neo_data'
+    dir_neo = '/Users/josh/Google Drive/Georgia Tech Notes/Capstone/data/neo_data/test'
     bound_top = 26.405982971191
     bound_left = -82.882919311523
     bound_right = -79.850692749023

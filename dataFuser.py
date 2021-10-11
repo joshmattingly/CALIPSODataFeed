@@ -127,3 +127,5 @@ gdf_list = [gdf_anom, gdf_neo, gdf_seagrass, gdf_rock, gdf_rubble, gdf_sand, gdf
 
 for gdf in gdf_list:
     all_match = ckdnearest(all_match, gdf)
+
+all_match.to_csv('data_fusion.csv')
