@@ -20,7 +20,7 @@ def process_images(dir, column, top, left, bottom, right, coral=False):
                 gray[gray > 0] = 1
             thresh = cv2.threshold(gray, 100, 200, cv2.THRESH_TOZERO_INV)[1]
             border = np.where(thresh == 0)
-            top_thickness = 5
+            top_thickness = 8
             bottom_thickness = 6
             top_left = (np.min(border[0])+top_thickness, np.min(border[1])+top_thickness)
             bottom_right = (np.max(border[0])-bottom_thickness, np.max(border[1])-bottom_thickness)
@@ -62,7 +62,7 @@ def process_geos(dir, top, left, bottom, right):
 
             thresh = cv2.threshold(gray, 100, 200, cv2.THRESH_TOZERO_INV)[1]
             border = np.where(thresh == 0)
-            top_thickness = 5
+            top_thickness = 8
             bottom_thickness = 6
             top_left = (np.min(border[0])+top_thickness, np.min(border[1])+top_thickness)
             bottom_right = (np.max(border[0])-bottom_thickness, np.max(border[1])-bottom_thickness)
@@ -99,4 +99,7 @@ if __name__ == "__main__":
     bottom = 24.208717346191
 
     # df_anom = process_images(dir_anom, 'temp_anom', top, left, bottom, right, False)
-    # df_coral = process_images(dir_coral, 'coral_fungi', top, left, bottom, right, True)
+    df_coral = process_images(dir_coral, 'coral_algae', top, left, bottom, right, True)
+
+    import matplotlib.pyplot as plt
+    plt.scatter(x=df_coral.Lat, y=df_coral.Long, c=df_coral.coral_algae)
