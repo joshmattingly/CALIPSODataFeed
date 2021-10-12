@@ -1,12 +1,3 @@
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-
-from PIL import Image
-from skimage import io, color
-
-
 # coordinates based on CALIPSO area selector
 top = 26.405982971191
 left = -82.882919311523

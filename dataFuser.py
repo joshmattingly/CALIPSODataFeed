@@ -7,10 +7,7 @@ from calipsoParser import process_sat
 import geopandas
 import numpy as np
 
-import os
-import sqlite3
 from scipy.spatial import cKDTree
-from shapely.geometry import Point
 
 dir_anom = '/Users/josh/Google Drive/Georgia Tech Notes/Capstone/data/temp_anom'
 dir_coral = '/Users/josh/Google Drive/Georgia Tech Notes/Capstone/data/coral_snapshot'
@@ -60,13 +57,13 @@ df_deep_lagoon = process_images("{}/{}".format(dir_geo, 'deep_lagoon'), 'deep_la
                                 bound_top, bound_left, bound_bottom, bound_right, False)
 
 
-def aggregate_data(df_main, metric):
+'''def aggregate_data(df_main, metric):
     df = df_main
     # df = df[df.temp_anom > 0]
     df['Long'] = np.round(df['Long'], 4)
     df['Lat'] = pd.to_numeric(df.Lat)
     df['Lat'] = np.round(df.Lat, 4)
-    return df.groupby(['Lat', 'Long', 'Date']).agg(X=(metric, 'median')).reset_index()
+    return df.groupby(['Lat', 'Long', 'Date']).agg(X=(metric, 'median')).reset_index()'''
 
 
 def create_gdf(df):
