@@ -13,7 +13,7 @@ from skimage import io, color
 mapWidth = 8640
 mapHeight = 4320
 
-lat_min = -180
+lat_min = 180
 lng_min = -90
 
 lng_range = 180
