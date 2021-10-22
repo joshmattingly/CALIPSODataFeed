@@ -1,0 +1,236 @@
+1634669616881	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/h_/y2d85x750sj_049x505kz9640000gp/T/rust_mozprofileyf3RVw"
+1634669617649	Marionette	INFO	Marionette enabled
+2021-10-19 13:53:38.412 firefox-bin[92166:16683963] Warning: Expected min height of view: (<NSButton: 0x12622dc00>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 13:53:38.413 firefox-bin[92166:16683963] Warning: Expected min height of view: (<NSButton: 0x1336d5c00>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 13:53:38.413 firefox-bin[92166:16683963] Warning: Expected min height of view: (<NSButton: 0x1336d4c00>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 13:53:38.414 firefox-bin[92166:16683963] Warning: Expected min height of view: (<NSButton: 0x1336d6000>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 13:53:38.414 firefox-bin[92166:16683963] Warning: Expected min height of view: (<NSButton: 0x1336d8400>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 13:53:38.415 firefox-bin[92166:16683963] Warning: Expected min height of view: (<NSPopoverTouchBarItemButton: 0x133ada400>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 13:53:38.415 firefox-bin[92166:16683963] Warning: Expected min height of view: (<NSPopoverTouchBarItemButton: 0x133ae4400>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /var/folders/h_/y2d85x750sj_049x505kz9640000gp/T/rust_mozprofileyf3RVw/search.json.mozlz4", (void 0)))
+console.error: BackgroundUpdate: 
+  _reasonsToNotScheduleUpdates: Failed to check for Maintenance Service Registry Key: [Exception... "Component returned failure code: 0x80004001 (NS_ERROR_NOT_IMPLEMENTED) [nsIUpdateProcessor.getServiceRegKeyExists]"  nsresult: "0x80004001 (NS_ERROR_NOT_IMPLEMENTED)"  location: "JS frame :: resource://gre/modules/BackgroundUpdate.jsm :: _reasonsToNotScheduleUpdates :: line 243"  data: no]
+1634669619598	Marionette	INFO	Listening on port 54105
+1634669619684	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 125: Error: Invalid autocomplete selectedIndex
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 125: Error: Invalid autocomplete selectedIndex
+JavaScript error: resource://gre/modules/LoginManagerChild.jsm, line 194: NS_ERROR_XPC_JAVASCRIPT_ERROR_WITH_DETAILS: [JavaScript Error: "Invalid autocomplete selectedIndex" {file: "resource://gre/actors/AutoCompleteChild.jsm" line: 125}]'[JavaScript Error: "Invalid autocomplete selectedIndex" {file: "resource://gre/actors/AutoCompleteChild.jsm" line: 125}]' when calling method: [nsIAutoCompletePopup::selectedIndex]
+2021-10-19 13:55:03.627 firefox-bin[92166:16683963] Warning: Expected min height of view: (<NSButton: 0x126229400>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 13:55:03.628 firefox-bin[92166:16683963] Warning: Expected min height of view: (<NSButton: 0x1264bac00>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 13:55:03.628 firefox-bin[92166:16683963] Warning: Expected min height of view: (<NSButton: 0x1264b4400>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 13:55:03.629 firefox-bin[92166:16683963] Warning: Expected min height of view: (<NSButton: 0x1264b5000>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 13:55:03.630 firefox-bin[92166:16683963] Warning: Expected min height of view: (<NSButton: 0x127649800>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 13:55:03.630 firefox-bin[92166:16683963] Warning: Expected min height of view: (<NSPopoverTouchBarItemButton: 0x1336d0c00>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 13:55:03.631 firefox-bin[92166:16683963] Warning: Expected min height of view: (<NSPopoverTouchBarItemButton: 0x13e751800>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 13:55:50.966 firefox-bin[92166:16683963] Warning: Expected min height of view: (<NSButton: 0x1344a0400>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 13:55:50.966 firefox-bin[92166:16683963] Warning: Expected min height of view: (<NSButton: 0x1383e5000>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 13:55:50.967 firefox-bin[92166:16683963] Warning: Expected min height of view: (<NSButton: 0x1383df400>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 13:55:50.968 firefox-bin[92166:16683963] Warning: Expected min height of view: (<NSButton: 0x1383dfc00>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 13:55:50.968 firefox-bin[92166:16683963] Warning: Expected min height of view: (<NSButton: 0x13a03d800>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 13:55:50.969 firefox-bin[92166:16683963] Warning: Expected min height of view: (<NSPopoverTouchBarItemButton: 0x13a045c00>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 13:55:50.969 firefox-bin[92166:16683963] Warning: Expected min height of view: (<NSPopoverTouchBarItemButton: 0x13e645000>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+[Parent 92166, IPC I/O Parent] WARNING: FileDescriptorSet destroyed with unconsumed descriptors: file /builds/worker/checkouts/gecko/ipc/chromium/src/chrome/common/file_descriptor_set_posix.cc:19
+2021-10-19 13:56:28.132 firefox-bin[92166:16683963] Warning: Expected min height of view: (<NSButton: 0x126f42000>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 13:56:28.133 firefox-bin[92166:16683963] Warning: Expected min height of view: (<NSButton: 0x13d5b8c00>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 13:56:28.133 firefox-bin[92166:16683963] Warning: Expected min height of view: (<NSButton: 0x13d5b9000>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 13:56:28.134 firefox-bin[92166:16683963] Warning: Expected min height of view: (<NSButton: 0x13d5b9400>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 13:56:28.135 firefox-bin[92166:16683963] Warning: Expected min height of view: (<NSButton: 0x13db0ac00>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 13:56:28.135 firefox-bin[92166:16683963] Warning: Expected min height of view: (<NSPopoverTouchBarItemButton: 0x13db0c000>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 13:56:28.136 firefox-bin[92166:16683963] Warning: Expected min height of view: (<NSPopoverTouchBarItemButton: 0x13e2c5000>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+1634669962272	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/h_/y2d85x750sj_049x505kz9640000gp/T/rust_mozprofilezMWI0r"
+1634669962673	Marionette	INFO	Marionette enabled
+2021-10-19 13:59:23.289 firefox-bin[93223:16697890] Warning: Expected min height of view: (<NSButton: 0x13552d400>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 13:59:23.290 firefox-bin[93223:16697890] Warning: Expected min height of view: (<NSButton: 0x135534800>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 13:59:23.291 firefox-bin[93223:16697890] Warning: Expected min height of view: (<NSButton: 0x13552fc00>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 13:59:23.291 firefox-bin[93223:16697890] Warning: Expected min height of view: (<NSButton: 0x135534c00>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 13:59:23.292 firefox-bin[93223:16697890] Warning: Expected min height of view: (<NSButton: 0x135532400>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 13:59:23.292 firefox-bin[93223:16697890] Warning: Expected min height of view: (<NSPopoverTouchBarItemButton: 0x135534000>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 13:59:23.293 firefox-bin[93223:16697890] Warning: Expected min height of view: (<NSPopoverTouchBarItemButton: 0x1355d0400>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /var/folders/h_/y2d85x750sj_049x505kz9640000gp/T/rust_mozprofilezMWI0r/search.json.mozlz4", (void 0)))
+console.error: BackgroundUpdate: 
+  _reasonsToNotScheduleUpdates: Failed to check for Maintenance Service Registry Key: [Exception... "Component returned failure code: 0x80004001 (NS_ERROR_NOT_IMPLEMENTED) [nsIUpdateProcessor.getServiceRegKeyExists]"  nsresult: "0x80004001 (NS_ERROR_NOT_IMPLEMENTED)"  location: "JS frame :: resource://gre/modules/BackgroundUpdate.jsm :: _reasonsToNotScheduleUpdates :: line 243"  data: no]
+1634669964464	Marionette	INFO	Listening on port 54434
+1634669964549	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 125: Error: Invalid autocomplete selectedIndex
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 125: Error: Invalid autocomplete selectedIndex
+JavaScript error: resource://gre/modules/LoginManagerChild.jsm, line 194: NS_ERROR_XPC_JAVASCRIPT_ERROR_WITH_DETAILS: [JavaScript Error: "Invalid autocomplete selectedIndex" {file: "resource://gre/actors/AutoCompleteChild.jsm" line: 125}]'[JavaScript Error: "Invalid autocomplete selectedIndex" {file: "resource://gre/actors/AutoCompleteChild.jsm" line: 125}]' when calling method: [nsIAutoCompletePopup::selectedIndex]
+2021-10-19 14:00:14.009 firefox-bin[93223:16697890] Warning: Expected min height of view: (<NSButton: 0x12858d800>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 14:00:14.009 firefox-bin[93223:16697890] Warning: Expected min height of view: (<NSButton: 0x13e33d800>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 14:00:14.010 firefox-bin[93223:16697890] Warning: Expected min height of view: (<NSButton: 0x17190e800>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 14:00:14.010 firefox-bin[93223:16697890] Warning: Expected min height of view: (<NSButton: 0x171912400>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 14:00:14.011 firefox-bin[93223:16697890] Warning: Expected min height of view: (<NSButton: 0x171917800>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 14:00:14.011 firefox-bin[93223:16697890] Warning: Expected min height of view: (<NSPopoverTouchBarItemButton: 0x171917000>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 14:00:14.012 firefox-bin[93223:16697890] Warning: Expected min height of view: (<NSPopoverTouchBarItemButton: 0x171e57000>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+console.log: WebExtensions: reset-default-search: starting.
+console.log: WebExtensions: reset-default-search: No addons in our list are installed.
+JavaScript error: resource://activity-stream/lib/PersonalityProvider/PersonalityProvider.jsm, line 84: TypeError: http://%(server)s/dummy/blocklist// is not a valid URL.
+JavaScript error: resource://activity-stream/lib/PersonalityProvider/PersonalityProvider.jsm, line 84: TypeError: http://%(server)s/dummy/blocklist// is not a valid URL.
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/170a56ca-c1bf-4181-9b30-693002f7e245.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/170a56ca-c1bf-4181-9b30-693002f7e245.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/170a56ca-c1bf-4181-9b30-693002f7e245.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/06e44aaa-324b-47ac-b458-72e1bccdf86b.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/06e44aaa-324b-47ac-b458-72e1bccdf86b.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/06e44aaa-324b-47ac-b458-72e1bccdf86b.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/30c71fa2-8842-419c-89db-addd30268f5b.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/30c71fa2-8842-419c-89db-addd30268f5b.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/30c71fa2-8842-419c-89db-addd30268f5b.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/fa731eb2-b049-44bc-a12d-f42f7cea991d.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/fa731eb2-b049-44bc-a12d-f42f7cea991d.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/fa731eb2-b049-44bc-a12d-f42f7cea991d.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/2a0dbd55-2eae-44ea-b787-5379594979ff.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/2a0dbd55-2eae-44ea-b787-5379594979ff.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/2a0dbd55-2eae-44ea-b787-5379594979ff.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/bd6fe48d-f356-4af1-bb7e-4de42b1e6272.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/bd6fe48d-f356-4af1-bb7e-4de42b1e6272.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/bd6fe48d-f356-4af1-bb7e-4de42b1e6272.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/c2485f5d-8bb1-4a45-a752-efffe9cd55c3.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/c2485f5d-8bb1-4a45-a752-efffe9cd55c3.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/c2485f5d-8bb1-4a45-a752-efffe9cd55c3.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/281d6a98-5f8e-4bc4-8bae-72e7e16933ca.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/281d6a98-5f8e-4bc4-8bae-72e7e16933ca.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/281d6a98-5f8e-4bc4-8bae-72e7e16933ca.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/e8645388-afc5-48e3-8f3f-80f82a5353dc.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/e8645388-afc5-48e3-8f3f-80f82a5353dc.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/e8645388-afc5-48e3-8f3f-80f82a5353dc.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/47d2bcee-b6c1-464e-a443-e3527d029b0f.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/47d2bcee-b6c1-464e-a443-e3527d029b0f.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/47d2bcee-b6c1-464e-a443-e3527d029b0f.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/18f03fe5-a60f-48c5-8cb8-13da750ca395.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/18f03fe5-a60f-48c5-8cb8-13da750ca395.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/18f03fe5-a60f-48c5-8cb8-13da750ca395.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/cdd3cdfb-1988-482a-850f-ec02aff07f45.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/cdd3cdfb-1988-482a-850f-ec02aff07f45.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/cdd3cdfb-1988-482a-850f-ec02aff07f45.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/a3944b1a-5464-406f-a97e-691702019575.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/a3944b1a-5464-406f-a97e-691702019575.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/a3944b1a-5464-406f-a97e-691702019575.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/61c97d21-6576-4624-aa8b-37839293aebd.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/61c97d21-6576-4624-aa8b-37839293aebd.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/61c97d21-6576-4624-aa8b-37839293aebd.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/1db0b78b-42f2-44fd-b78c-43f5fc760fa1.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/1db0b78b-42f2-44fd-b78c-43f5fc760fa1.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/1db0b78b-42f2-44fd-b78c-43f5fc760fa1.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/393f4033-c815-48d4-bf23-1eb42b4d30db.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/393f4033-c815-48d4-bf23-1eb42b4d30db.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/393f4033-c815-48d4-bf23-1eb42b4d30db.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/76666027-45db-4baa-8197-6e0f886966a8.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/76666027-45db-4baa-8197-6e0f886966a8.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/76666027-45db-4baa-8197-6e0f886966a8.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/24538f21-45ca-4dab-addb-65f655a688e2.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/24538f21-45ca-4dab-addb-65f655a688e2.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/24538f21-45ca-4dab-addb-65f655a688e2.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/ad749af2-93d7-4bf3-982f-a558175fd806.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/ad749af2-93d7-4bf3-982f-a558175fd806.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/ad749af2-93d7-4bf3-982f-a558175fd806.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/f477331d-33dc-4dfe-be46-88d5223fb439.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/f477331d-33dc-4dfe-be46-88d5223fb439.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/f477331d-33dc-4dfe-be46-88d5223fb439.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/8267a2cc-0984-4410-87db-c02530703a98.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/8267a2cc-0984-4410-87db-c02530703a98.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/8267a2cc-0984-4410-87db-c02530703a98.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/3fcbb458-7362-47bb-a426-6b542eb2f014.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/3fcbb458-7362-47bb-a426-6b542eb2f014.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/3fcbb458-7362-47bb-a426-6b542eb2f014.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/5d011771-de98-48f3-8565-7fc1ef6439c3.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/5d011771-de98-48f3-8565-7fc1ef6439c3.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/5d011771-de98-48f3-8565-7fc1ef6439c3.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/145b9461-d6cc-4341-8d96-ec3bacace059.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/145b9461-d6cc-4341-8d96-ec3bacace059.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/145b9461-d6cc-4341-8d96-ec3bacace059.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/0685a1b5-34eb-4c13-8c90-bc82735e527f.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/0685a1b5-34eb-4c13-8c90-bc82735e527f.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-models/0685a1b5-34eb-4c13-8c90-bc82735e527f.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-recipe/e4fb5038-c29e-4954-98a0-72a882e4841f.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-recipe/e4fb5038-c29e-4954-98a0-72a882e4841f.json: "
+console.error: "Failed to fetch undefinedmain-workspace/personality-provider-recipe/e4fb5038-c29e-4954-98a0-72a882e4841f.json: "
+console.log: WebExtensions: reset-default-search: starting.
+console.log: WebExtensions: reset-default-search: No addons in our list are installed.
+2021-10-19 14:15:08.942 firefox-bin[93223:16697890] Warning: Expected min height of view: (<NSButton: 0x127b51800>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 14:15:08.943 firefox-bin[93223:16697890] Warning: Expected min height of view: (<NSButton: 0x171e69000>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 14:15:08.943 firefox-bin[93223:16697890] Warning: Expected min height of view: (<NSButton: 0x171e6f800>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 14:15:08.944 firefox-bin[93223:16697890] Warning: Expected min height of view: (<NSButton: 0x171e6b000>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 14:15:08.945 firefox-bin[93223:16697890] Warning: Expected min height of view: (<NSButton: 0x171e6b800>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 14:15:08.945 firefox-bin[93223:16697890] Warning: Expected min height of view: (<NSPopoverTouchBarItemButton: 0x1720e1000>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 14:15:08.946 firefox-bin[93223:16697890] Warning: Expected min height of view: (<NSPopoverTouchBarItemButton: 0x175199400>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+Marionette threw an error: TypeError: this.curBrowser.contentBrowser is null
+GeckoDriver.prototype.navigateTo@chrome://remote/content/marionette/driver.js:918:3
+
+1634670925305	Marionette	INFO	Stopped listening on port 54434
+JavaScript error: resource:///modules/Interactions.jsm, line 209: NS_ERROR_FAILURE: Component returned failure code: 0x80004005 (NS_ERROR_FAILURE) [nsIUserIdleService.removeIdleObserver]
+JavaScript error: chrome://remote/content/marionette/cert.js, line 55: NS_ERROR_NOT_AVAILABLE: Component returned failure code: 0x80040111 (NS_ERROR_NOT_AVAILABLE) [nsICertOverrideService.setDisableAllSecurityChecksAndLetAttackersInterceptMyData]
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1634671034114	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/h_/y2d85x750sj_049x505kz9640000gp/T/rust_mozprofilebwG1HQ"
+1634671034488	Marionette	INFO	Marionette enabled
+2021-10-19 14:17:15.164 firefox-bin[95463:16728626] Warning: Expected min height of view: (<NSButton: 0x12f15cc00>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 14:17:15.164 firefox-bin[95463:16728626] Warning: Expected min height of view: (<NSButton: 0x12f156000>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 14:17:15.165 firefox-bin[95463:16728626] Warning: Expected min height of view: (<NSButton: 0x12f15c000>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 14:17:15.165 firefox-bin[95463:16728626] Warning: Expected min height of view: (<NSButton: 0x12f15d000>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 14:17:15.166 firefox-bin[95463:16728626] Warning: Expected min height of view: (<NSButton: 0x12f155400>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 14:17:15.166 firefox-bin[95463:16728626] Warning: Expected min height of view: (<NSPopoverTouchBarItemButton: 0x12f162000>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 14:17:15.167 firefox-bin[95463:16728626] Warning: Expected min height of view: (<NSPopoverTouchBarItemButton: 0x12f319000>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /var/folders/h_/y2d85x750sj_049x505kz9640000gp/T/rust_mozprofilebwG1HQ/search.json.mozlz4", (void 0)))
+console.error: BackgroundUpdate: 
+  _reasonsToNotScheduleUpdates: Failed to check for Maintenance Service Registry Key: [Exception... "Component returned failure code: 0x80004001 (NS_ERROR_NOT_IMPLEMENTED) [nsIUpdateProcessor.getServiceRegKeyExists]"  nsresult: "0x80004001 (NS_ERROR_NOT_IMPLEMENTED)"  location: "JS frame :: resource://gre/modules/BackgroundUpdate.jsm :: _reasonsToNotScheduleUpdates :: line 243"  data: no]
+1634671036292	Marionette	INFO	Listening on port 54941
+1634671036389	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+1634671059306	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/h_/y2d85x750sj_049x505kz9640000gp/T/rust_mozprofileyaysiF"
+1634671059675	Marionette	INFO	Marionette enabled
+2021-10-19 14:17:40.355 firefox-bin[95547:16730172] Warning: Expected min height of view: (<NSButton: 0x12cf7d800>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 14:17:40.356 firefox-bin[95547:16730172] Warning: Expected min height of view: (<NSButton: 0x12cf7ec00>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 14:17:40.356 firefox-bin[95547:16730172] Warning: Expected min height of view: (<NSButton: 0x12cf82c00>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 14:17:40.357 firefox-bin[95547:16730172] Warning: Expected min height of view: (<NSButton: 0x12cf7b400>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 14:17:40.357 firefox-bin[95547:16730172] Warning: Expected min height of view: (<NSButton: 0x12cf7bc00>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 14:17:40.358 firefox-bin[95547:16730172] Warning: Expected min height of view: (<NSPopoverTouchBarItemButton: 0x12cf7e400>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 14:17:40.358 firefox-bin[95547:16730172] Warning: Expected min height of view: (<NSPopoverTouchBarItemButton: 0x12cff1c00>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /var/folders/h_/y2d85x750sj_049x505kz9640000gp/T/rust_mozprofileyaysiF/search.json.mozlz4", (void 0)))
+console.error: BackgroundUpdate: 
+  _reasonsToNotScheduleUpdates: Failed to check for Maintenance Service Registry Key: [Exception... "Component returned failure code: 0x80004001 (NS_ERROR_NOT_IMPLEMENTED) [nsIUpdateProcessor.getServiceRegKeyExists]"  nsresult: "0x80004001 (NS_ERROR_NOT_IMPLEMENTED)"  location: "JS frame :: resource://gre/modules/BackgroundUpdate.jsm :: _reasonsToNotScheduleUpdates :: line 243"  data: no]
+1634671061615	Marionette	INFO	Listening on port 55035
+1634671061671	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+1634671063872	Marionette	INFO	Stopped listening on port 54105
+JavaScript error: resource:///modules/Interactions.jsm, line 209: NS_ERROR_FAILURE: Component returned failure code: 0x80004005 (NS_ERROR_FAILURE) [nsIUserIdleService.removeIdleObserver]
+JavaScript error: chrome://remote/content/marionette/cert.js, line 55: NS_ERROR_NOT_AVAILABLE: Component returned failure code: 0x80040111 (NS_ERROR_NOT_AVAILABLE) [nsICertOverrideService.setDisableAllSecurityChecksAndLetAttackersInterceptMyData]
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1634671066120	Marionette	INFO	Stopped listening on port 54941
+JavaScript error: resource:///modules/Interactions.jsm, line 209: NS_ERROR_FAILURE: Component returned failure code: 0x80004005 (NS_ERROR_FAILURE) [nsIUserIdleService.removeIdleObserver]
+JavaScript error: chrome://remote/content/marionette/cert.js, line 55: NS_ERROR_NOT_AVAILABLE: Component returned failure code: 0x80040111 (NS_ERROR_NOT_AVAILABLE) [nsICertOverrideService.setDisableAllSecurityChecksAndLetAttackersInterceptMyData]
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 125: Error: Invalid autocomplete selectedIndex
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 125: Error: Invalid autocomplete selectedIndex
+JavaScript error: resource://gre/modules/LoginManagerChild.jsm, line 194: NS_ERROR_XPC_JAVASCRIPT_ERROR_WITH_DETAILS: [JavaScript Error: "Invalid autocomplete selectedIndex" {file: "resource://gre/actors/AutoCompleteChild.jsm" line: 125}]'[JavaScript Error: "Invalid autocomplete selectedIndex" {file: "resource://gre/actors/AutoCompleteChild.jsm" line: 125}]' when calling method: [nsIAutoCompletePopup::selectedIndex]
+2021-10-19 14:18:21.211 firefox-bin[95547:16730172] Warning: Expected min height of view: (<NSButton: 0x1023b3c00>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 14:18:21.212 firefox-bin[95547:16730172] Warning: Expected min height of view: (<NSButton: 0x13360a400>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 14:18:21.213 firefox-bin[95547:16730172] Warning: Expected min height of view: (<NSButton: 0x13360ec00>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 14:18:21.213 firefox-bin[95547:16730172] Warning: Expected min height of view: (<NSButton: 0x168c3f400>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 14:18:21.214 firefox-bin[95547:16730172] Warning: Expected min height of view: (<NSButton: 0x168c39c00>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 14:18:21.214 firefox-bin[95547:16730172] Warning: Expected min height of view: (<NSPopoverTouchBarItemButton: 0x168c96400>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 14:18:21.215 firefox-bin[95547:16730172] Warning: Expected min height of view: (<NSPopoverTouchBarItemButton: 0x169977800>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 14:19:06.585 firefox-bin[95547:16730172] Warning: Expected min height of view: (<NSButton: 0x11f5b4000>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 14:19:06.586 firefox-bin[95547:16730172] Warning: Expected min height of view: (<NSButton: 0x120253800>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 14:19:06.586 firefox-bin[95547:16730172] Warning: Expected min height of view: (<NSButton: 0x12dbe9c00>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 14:19:06.587 firefox-bin[95547:16730172] Warning: Expected min height of view: (<NSButton: 0x12dbea400>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 14:19:06.588 firefox-bin[95547:16730172] Warning: Expected min height of view: (<NSButton: 0x12dbedc00>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 14:19:06.588 firefox-bin[95547:16730172] Warning: Expected min height of view: (<NSPopoverTouchBarItemButton: 0x13360a400>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 14:19:06.589 firefox-bin[95547:16730172] Warning: Expected min height of view: (<NSPopoverTouchBarItemButton: 0x16994d000>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 14:20:16.128 firefox-bin[95547:16730172] Warning: Expected min height of view: (<NSButton: 0x12d8c6400>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 14:20:16.129 firefox-bin[95547:16730172] Warning: Expected min height of view: (<NSButton: 0x136339c00>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 14:20:16.129 firefox-bin[95547:16730172] Warning: Expected min height of view: (<NSButton: 0x13637c000>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 14:20:16.130 firefox-bin[95547:16730172] Warning: Expected min height of view: (<NSButton: 0x13674c800>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 14:20:16.130 firefox-bin[95547:16730172] Warning: Expected min height of view: (<NSButton: 0x136762c00>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 14:20:16.131 firefox-bin[95547:16730172] Warning: Expected min height of view: (<NSPopoverTouchBarItemButton: 0x136f70000>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+2021-10-19 14:20:16.132 firefox-bin[95547:16730172] Warning: Expected min height of view: (<NSPopoverTouchBarItemButton: 0x16ea84400>) to be less than or equal to 30 but got a height of 32.000000. This error will be logged once per view in violation.
+console.warn: LoginHelper(Main): "Couldn't parse origin for" "about:preferences" ({})
+console.warn: LoginHelper(Main): "Couldn't parse origin for" "about:preferences" ({})
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" null
+1634671426848	Marionette	INFO	Stopped listening on port 55035
+JavaScript error: resource:///modules/Interactions.jsm, line 209: NS_ERROR_FAILURE: Component returned failure code: 0x80004005 (NS_ERROR_FAILURE) [nsIUserIdleService.removeIdleObserver]
+JavaScript error: chrome://remote/content/marionette/cert.js, line 55: NS_ERROR_NOT_AVAILABLE: Component returned failure code: 0x80040111 (NS_ERROR_NOT_AVAILABLE) [nsICertOverrideService.setDisableAllSecurityChecksAndLetAttackersInterceptMyData]
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+

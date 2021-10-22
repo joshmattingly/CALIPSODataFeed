@@ -9,6 +9,7 @@ def process_sat(root):
     dirListing = os.listdir(root)
     df = None
     for file in dirListing:
+        print('{}'.format(file))
         if ".h5" in file:
             f = h5py.File('{}{}'.format(root, file), 'r')
 
@@ -33,5 +34,6 @@ def process_sat(root):
 
 
 if __name__ == '__main__':
-    calipso_folder = '/Users/josh/Google Drive/Georgia Tech Notes/Capstone/data/2021272175244_62409/'
+    calipso_folder = './'
     df = process_sat(calipso_folder)
+    df.to_csv('calipso.csv')
