@@ -61,4 +61,31 @@ def ckdnearest(gdA, gdB):
 
 # gdf_neo = create_gdf(df_neo)
 
+import geopandas as gpd
+from sqlalchemy import create_engine
+from sqlalchemy.dialects.mysql import LONGTEXT
+from getpass import getpass
 
+hostname = "localhost"
+dbname = "coral_data"
+uname = "root"
+pwd = getpass()
+
+mysql = create_engine("mysql+pymysql://{user}:{pw}@{host}/{db}".format(host=hostname, db=dbname, user=uname, pw=pwd))
+wkt_benth = gdf_benth.to_wkt()
+wkt_geo = gdf_geo.to_wkt()
+with mysql.connect() as con:
+    con.execute("""ALTER DATABASE coral_data CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci;""")
+
+    wkt_benth.to_sql('benthic_data', con, if_exists='replace', dtype={'geometry': LONGTEXT})
+
+    con.execute("""ALTER TABLE coral_data.benthic_data ADD COLUMN new_geometry GEOMETRY;""")
+    con.execute("""UPDATE coral_data.benthic_data SET new_geometry = ST_GeomFromText(geometry);""")
+
+with mysql.connect() as con:
+    con.execute("""ALTER DATABASE coral_data CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci;""")
+
+    wkt_geo.to_sql('geo_data', con, if_exists='replace', dtype={'geometry': LONGTEXT})
+
+    con.execute("""ALTER TABLE coral_data.geo_data ADD COLUMN new_geometry GEOMETRY;""")
+    con.execute("""UPDATE coral_data.geo_data SET new_geometry = ST_GeomFromText(geometry);""")
