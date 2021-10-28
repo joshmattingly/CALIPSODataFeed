@@ -4,16 +4,10 @@ import os
 import re
 import netCDF4 as nc
 from getpass import getpass
-
+import geopandas
 from sqlalchemy import create_engine
 
-hostname= "localhost"
-dbname= "coral_data"
-uname = "root"
-pwd = getpass()
-engine = create_engine("mysql+pymysql://{user}:{pw}@{host}/{db}".format(host=hostname, db=dbname, user=uname, pw=pwd))
-
-import pymysql
+engine = create_engine('postgresql://jmattingly31@localhost:5432/coral_data')
 
 
 def process_neo(root, top, left, bottom, right):
@@ -61,6 +55,6 @@ if __name__ == "__main__":
     bound_right = -79.850692749023
     bound_bottom = 24.208717346191
 
-    root = 'neo_data/'
+    root = 'neo_data'
     process_neo(root, bound_top, bound_left, bound_bottom, bound_right)
     # df_neo.to_csv('neo_data_2014_2020.csv')

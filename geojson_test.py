@@ -9,7 +9,7 @@ from shapely.geometry import Point, Polygon, shape
 import shapely.speedups
 
 import calipsoParser
-from neoParser import process_neo
+# from neoParser import process_neo
 from scipy.spatial import cKDTree
 from pyspark.sql.functions import *
 from pyspark.sql.types import StringType, IntegerType, FloatType, DoubleType,DecimalType
@@ -64,17 +64,19 @@ def ckdnearest(gdA, gdB):
 import geopandas as gpd
 from sqlalchemy import create_engine
 from sqlalchemy.dialects.mysql import LONGTEXT
-from getpass import getpass
+# from getpass import getpass
 
 hostname = "localhost"
 dbname = "coral_data"
-uname = "root"
-pwd = getpass()
+uname = "josh"
+# pwd = getpass()
 
-mysql = create_engine("mysql+pymysql://{user}:{pw}@{host}/{db}".format(host=hostname, db=dbname, user=uname, pw=pwd))
+# mysql = create_engine("mysql+pymysql://{user}:{pw}@{host}/{db}".format(host=hostname, db=dbname, user=uname, pw=pwd))
+# postgres = create_engine('postgresql://{user}:{pw}@{host}:5432/{db}'.format(host=hostname, db=dbname,
+#                                                                             user=uname, pw=pwd))
 wkt_benth = gdf_benth.to_wkt()
 wkt_geo = gdf_geo.to_wkt()
-with mysql.connect() as con:
+with postgres.connect() as con:
     con.execute("""ALTER DATABASE coral_data CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci;""")
 
     wkt_benth.to_sql('benthic_data', con, if_exists='replace', dtype={'geometry': LONGTEXT})
