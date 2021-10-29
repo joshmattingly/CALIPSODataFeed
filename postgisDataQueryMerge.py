@@ -32,7 +32,7 @@ local_port = str(server.local_bind_port)
 engine = create_engine('postgresql://{}@{}:{}/{}'.format("jmattingly31", "127.0.0.1",
                                                          local_port, "coral_data"))
 
-df_calipso = pd.read_sql_query("""
+df_calipso = geopandas.read_postgis("""
 SELECT
        c."Date" as calipso_date,
        c."Lat",
@@ -42,6 +42,7 @@ SELECT
        c."580",
        c."581",
        c."582",
+       c."geom",
        n."Date" as neo_file_date
 FROM (SELECT * FROM calipso_data as c WHERE c."Date" >= '2018-01-01') c
 CROSS JOIN LATERAL (
@@ -51,18 +52,13 @@ CROSS JOIN LATERAL (
   ORDER BY n."Date"
   LIMIT 1
 ) AS n
-""", con=engine)
+""", con=engine, geom_col='geom')
 
 df_calipso['calipso_date'] = pd.to_datetime(df_calipso['calipso_date'])
 df_calipso['neo_file_date'] = pd.to_datetime(df_calipso['neo_file_date'])
 
-df_neo = pd.read_sql_query("SELECT * FROM neo_data", con=engine)
-# df_neo.drop(['index', 'pt'], axis=1, inplace=True)
-df_neo.columns = ['Lat', 'Long', 'chlorophyll', 'Date']
+df_neo = geopandas.read_postgis("SELECT * FROM neo_data", con=engine, geom_col='geom')
 df_neo['Date'] = pd.to_datetime(df_neo['Date'])
-
-gdf_neo = create_gdf(df_neo)
-gdf_calipso = create_gdf(df_calipso)
 
 
 def ckdnearest(gdA, gdB):
@@ -82,15 +78,15 @@ def ckdnearest(gdA, gdB):
     return gdf
 
 
-df_neo_dates = gdf_neo['Date'].unique()
+df_neo_dates = df_neo['Date'].unique()
 
 gdf_main = None
 
 for date in df_neo_dates:
     print(date)
     try:
-        temp_calipso = gdf_calipso[gdf_calipso.neo_file_date == date]
-        temp_neo = gdf_neo[gdf_neo.Date == date]
+        temp_calipso = df_calipso[df_calipso.neo_file_date == date]
+        temp_neo = df_neo[df_neo.Date == date]
         temp_gdf = ckdnearest(temp_calipso, temp_neo)
         if gdf_main is None:
             gdf_main = temp_gdf

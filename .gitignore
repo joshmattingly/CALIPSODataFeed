@@ -112,3 +112,9 @@ NEO/
 *.h5
 
 *.hdf
+
+*.gz
+
+data/FashionMNIST/raw/
+
+pytorchDataLoadTutorial.ipynb
