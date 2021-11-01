@@ -6,6 +6,7 @@ from sqlalchemy import create_engine
 from sshtunnel import SSHTunnelForwarder
 from scipy.spatial import cKDTree
 from shapely.geometry import Point
+import shapely.geometry
 from geopandas import gpd
 
 
