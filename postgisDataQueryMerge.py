@@ -6,8 +6,8 @@ from sqlalchemy import create_engine
 from sshtunnel import SSHTunnelForwarder
 from scipy.spatial import cKDTree
 from shapely.geometry import Point
-import shapely.geometry
 from geopandas import gpd
+from geoalchemy2.types import Geometry
 
 
 gdf_benth = geopandas.read_file('/Users/josh/Google Drive/Georgia Tech Notes/Capstone/data/Benthic-Map/benthic.shp')
