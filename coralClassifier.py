@@ -35,7 +35,7 @@ data = pd.concat([data, geo_dummies], axis=1)
 data.drop(['Unnamed: 0', 'calipso_date', 'neo_file_date', 'geometry', 'neo_date', 'neo_dist', 'benth_dist',
            'geo_class', 'geo_dist', 'benth_class', 'is_Rock', 'is_Rubble', 'is_Sand', 'is_Back Reef Slope',
            'is_Inner Reef Flat', 'is_Outer Reef Flat', 'is_Plateau', 'is_Reef Crest', 'is_Reef Slope',
-           'is_Shallow Lagoon', 'is_Sheltered Reef Slope', 'is_Terrestrial Reef Flat'],
+           'is_Shallow Lagoon', 'is_Sheltered Reef Slope', 'is_Terrestrial Reef Flat', 'is_Deep Lagoon'],
           axis=1, inplace=True)
 
 

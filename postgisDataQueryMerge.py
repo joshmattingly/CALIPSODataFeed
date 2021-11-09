@@ -10,10 +10,6 @@ from geopandas import gpd
 from geoalchemy2.types import Geometry
 
 
-gdf_benth = geopandas.read_file('/Users/josh/Google Drive/Georgia Tech Notes/Capstone/data/Benthic-Map/benthic.shp')
-gdf_geo = geopandas.read_file('/Users/josh/Google Drive/Georgia Tech Notes/Capstone/data/Geomorphic-Map/geomorphic.shp')
-
-
 def create_gdf(df):
     gdf = geopandas.GeoDataFrame(df, geometry=geopandas.points_from_xy(df.Lat, df.Long),
                                  crs="+proj=sinu +lon_0=0 +x_0=0 +y_0=0 +a=6371007.181 +b=6371007.181 +units=m +no_defs")
@@ -32,27 +28,11 @@ server.start()
 local_port = str(server.local_bind_port)
 engine = create_engine('postgresql://{}@{}:{}/{}'.format("jmattingly31", "127.0.0.1",
                                                          local_port, "coral_data"))
+gdf_benth = geopandas.read_file('/Users/josh/Google Drive/Georgia Tech Notes/Capstone/data/Benthic-Map/benthic.shp')
+gdf_geo = geopandas.read_file('/Users/josh/Google Drive/Georgia Tech Notes/Capstone/data/Geomorphic-Map/geomorphic.shp')
 
 df_calipso = geopandas.read_postgis("""
-SELECT
-       c."Date" as calipso_date,
-       c."Lat",
-       c."Long",
-       c."578",
-       c."579",
-       c."580",
-       c."581",
-       c."582",
-       c."geom",
-       n."Date" as neo_file_date
-FROM (SELECT * FROM calipso_data as c WHERE c."Date" >= '2018-01-01') c
-CROSS JOIN LATERAL (
-  SELECT n."Date"
-  FROM neo_dates as n
-  WHERE c."Date" <= n."Date"
-  ORDER BY n."Date"
-  LIMIT 1
-) AS n
+SELECT * FROM florida_100
 """, con=engine, geom_col='geom')
 
 df_calipso['calipso_date'] = pd.to_datetime(df_calipso['calipso_date'])
@@ -63,11 +43,11 @@ df_neo['Date'] = pd.to_datetime(df_neo['Date'])
 
 
 def ckdnearest(gdA, gdB):
-    nA = np.array(list(gdA.geometry.apply(lambda x: (x.x, x.y))))
-    nB = np.array(list(gdB.geometry.apply(lambda x: (x.x, x.y))))
+    nA = np.array(list(gdA.geom.apply(lambda x: (x.x, x.y))))
+    nB = np.array(list(gdB.geom.apply(lambda x: (x.x, x.y))))
     btree = cKDTree(nB)
     dist, idx = btree.query(nA, k=1)
-    gdB_nearest = gdB.iloc[idx].drop(columns="geometry").reset_index(drop=True)
+    gdB_nearest = gdB.iloc[idx].drop(columns="geom").reset_index(drop=True)
     gdf = pd.concat(
         [
             gdA.reset_index(drop=True),
@@ -94,25 +74,36 @@ for date in df_neo_dates:
         else:
             gdf_main = gdf_main.append(temp_gdf)
     except:
-        print("error processing {}".format(date))
+        print("Error processing {}".format(date))
         continue
 
-gdf_benth['geometry'] = gdf_benth.geometry.centroid
-gdf_benth['geometry'] = gdf_benth.apply(lambda row: Point(row.geometry.y, row.geometry.x), axis=1)
+gdf_benth['geom'] = gdf_benth.geometry.centroid
+gdf_benth['geom'] = gdf_benth.apply(lambda row: Point(row.geometry.y, row.geometry.x), axis=1)
 
-gdf_geo['geometry'] = gdf_geo.geometry.centroid
-gdf_geo['geometry'] = gdf_geo.apply(lambda row: Point(row.geometry.y, row.geometry.x), axis=1)
+gdf_geo['geom'] = gdf_geo.geometry.centroid
+gdf_geo['geom'] = gdf_geo.apply(lambda row: Point(row.geometry.y, row.geometry.x), axis=1)
 
+
+gdf_main.drop(['dist'], axis=1, inplace=True)
 gdf_main_benth = ckdnearest(gdf_main, gdf_benth)
-gdf_main_benth.columns = ['calipso_date', '578', '579', '580', '581', '582', 'neo_file_date',
-                          'geometry', 'chlorophyll', 'Date', 'dist', 'benth_class', 'benth_dist']
+gdf_main_benth.reset_index(inplace=True)
+# gdf_total = ckdnearest(gdf_main_benth, gdf_geo)
 
-gdf_total = ckdnearest(gdf_main_benth, gdf_geo)
-gdf_total.columns = ['calipso_date', '578', '579', '580', '581', '582', 'neo_file_date',
-'geometry', 'chlorophyll', 'neo_date', 'neo_dist', 'benth_class', 'benth_dist',
-'geo_class', 'geo_dist']
+gdf_main_benth.to_csv('florida_100_full.csv')
 
-gdf_total.to_csv('florida_full.csv')
+# gdf_main_benth.to_sql('florida_100_full', engine, index=False, if_exists='replace')
+gdf_classified = gdf_main_benth[gdf_main_benth.dist < 0.5]
+gdf_classified.to_csv('florida_100_classified.csv')
 
-gdf_total.to_sql('florida_full', engine, index=False, if_exists='replace')
-gdf_classified = gdf_total[(gdf_total.benth_dist < 0.1) | (gdf_total.geo_dist < 0.1)]
+
+gdf_class_test = gdf_classified.copy()
+gdf_class_test = gdf_class_test[gdf_class_test['class'] != 'Seagrass']
+
+dummies = gdf_class_test['class'].str.get_dummies()
+dummies.columns = ['is_' + col for col in dummies.columns]
+gdf_class_test = pd.concat([gdf_class_test, dummies], axis=1)
+
+gdf_class_test.drop(['index', 'calipso_date', 'Date', 'Long', 'Lat', 'geom', 'geometry', 'dist',
+                     'neo_file_date', 'Latitude', 'Longitude', 'is_Rock', 'is_Rubble', 'is_Sand', 'class'],
+                    axis=1, inplace=True)
+
