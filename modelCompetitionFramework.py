@@ -82,13 +82,21 @@ if __name__ == "__main__":
     dummies.columns = ['is_' + col for col in dummies.columns]
     gdf_class_test = pd.concat([gdf_class_test, dummies], axis=1)
 
+    gdf_chlor = gdf_class_test[['chlorophyll', 'is_Coral/Algae']]
+
     gdf_class_test.drop(['index', 'calipso_date', 'Date', 'Long', 'Lat', 'geom', 'geometry', 'dist',
                          'neo_file_date', 'Latitude', 'Longitude', 'is_Rock', 'is_Rubble', 'is_Sand', 'class',
                          'chlorophyll'],
                         axis=1, inplace=True)
 
+    # Baseline Test (predictions based only on chlorophyll concentrations
+    modelChlor = ModelCompetition(gdf_chlor)
+    modelChlor.run_competition()
+    # [RF: 0.9066769367981514, XBRF: 0.7470709855272226]
+
     modelComp = ModelCompetition(gdf_class_test)
     modelComp.run_competition()
+    # .
 
     result = permutation_importance(
         modelComp.clf, modelComp.X_test, modelComp.y_test, n_repeats=10, random_state=42, n_jobs=-1
@@ -103,7 +111,7 @@ if __name__ == "__main__":
     fig.tight_layout()
     plt.show()
     fig.set_size_inches(8, 6)
-    fig.savefig("all_features.png", dpi = 100)
+    fig.savefig("all_features.png", dpi=100)
 
     top_features = forest_importances.nlargest(5)
     fig, ax = plt.subplots()
@@ -111,7 +119,7 @@ if __name__ == "__main__":
     ax.set_title("Top CALIPSO Features")
     ax.set_ylabel("Mean decrease in impurity")
     fig.set_size_inches(8, 6)
-    fig.savefig("top_features.png", dpi = 100)
+    fig.savefig("top_features.png", dpi=100)
 
     gdf_class_simple = gdf_class_test[['Land_Water_Mask', '562', '563', '564', '578', 'is_Coral/Algae']]
     modelSimple = ModelCompetition(gdf_class_simple)
