@@ -74,30 +74,35 @@ class ModelCompetition:
 
 
 if __name__ == "__main__":
-
-    gdf_class_test = pd.read_csv('florida_100_classified.csv')
+    print("Importing Data")
+    gdf_class_test = pd.read_csv('florida_200_classified.csv')
     gdf_class_test = gdf_class_test[gdf_class_test['class'] != 'Seagrass']
-
+    print("Creating dummy variables")
     dummies = gdf_class_test['class'].str.get_dummies()
     dummies.columns = ['is_' + col for col in dummies.columns]
+    print("Creating test frame")
     gdf_class_test = pd.concat([gdf_class_test, dummies], axis=1)
-
+    print("Creating baseline frame")
     gdf_chlor = gdf_class_test[['chlorophyll', 'is_Coral/Algae']]
 
-    gdf_class_test.drop(['index', 'calipso_date', 'Date', 'Long', 'Lat', 'geom', 'geometry', 'dist',
-                         'neo_file_date', 'Latitude', 'Longitude', 'is_Rock', 'is_Rubble', 'is_Sand', 'class',
+    gdf_class_test.drop(['index', 'Unnamed: 0', 'calipso_date', 'Date', 'Date.1', 'Long', 'Lat', 'geom', 'geometry',
+                         'dist', 'neo_file_date', 'Latitude', 'Longitude', 'is_Rock', 'is_Rubble', 'is_Sand', 'class',
                          'chlorophyll'],
                         axis=1, inplace=True)
 
     # Baseline Test (predictions based only on chlorophyll concentrations
+    print("Running baseline competition")
     modelChlor = ModelCompetition(gdf_chlor)
     modelChlor.run_competition()
-    # [RF: 0.9066769367981514, XBRF: 0.7470709855272226]
-
+    print(modelChlor.scores)
+    # [RF: 0.9066769367981514, XGBF: 0.7470709855272226]
+    print("Running actual competition")
     modelComp = ModelCompetition(gdf_class_test)
     modelComp.run_competition()
-    # .
+    print(modelComp.scores)
+    # .[RF: 0.7942189970405805, XGBF: 0.7893947379089472]
 
+    print("Calculating Feature Importance")
     result = permutation_importance(
         modelComp.clf, modelComp.X_test, modelComp.y_test, n_repeats=10, random_state=42, n_jobs=-1
     )
@@ -121,6 +126,9 @@ if __name__ == "__main__":
     fig.set_size_inches(8, 6)
     fig.savefig("top_features.png", dpi=100)
 
+    print("Running competition with top five features only.")
     gdf_class_simple = gdf_class_test[['Land_Water_Mask', '562', '563', '564', '578', 'is_Coral/Algae']]
     modelSimple = ModelCompetition(gdf_class_simple)
     modelSimple.run_competition()
+    print(modelSimple.scores)
+    # [RF: 0.7880163781570519, XGBF: 0.789637977865164]

@@ -17,7 +17,7 @@ def create_gdf(df):
     return gdf
 
 
-server = SSHTunnelForwarder(
+'''server = SSHTunnelForwarder(
     ('pace-ice.pace.gatech.edu', 22),
     ssh_username=input("Username: "),
     ssh_password=getpass.getpass(prompt='Password: ', stream=None),
@@ -25,14 +25,14 @@ server = SSHTunnelForwarder(
 )
 server.start()
 
-local_port = str(server.local_bind_port)
+local_port = str(server.local_bind_port)'''
 engine = create_engine('postgresql://{}@{}:{}/{}'.format("jmattingly31", "127.0.0.1",
-                                                         local_port, "coral_data"))
-gdf_benth = geopandas.read_file('/Users/josh/Google Drive/Georgia Tech Notes/Capstone/data/Benthic-Map/benthic.shp')
-gdf_geo = geopandas.read_file('/Users/josh/Google Drive/Georgia Tech Notes/Capstone/data/Geomorphic-Map/geomorphic.shp')
+                                                         5432, "coral_data"))
+gdf_benth = geopandas.read_file('Benthic-Map/benthic.shp')
+# gdf_geo = geopandas.read_file('Geomorphic-Map/geomorphic.shp')
 
 df_calipso = geopandas.read_postgis("""
-SELECT * FROM florida_100
+SELECT * FROM florida_200
 """, con=engine, geom_col='geom')
 
 df_calipso['calipso_date'] = pd.to_datetime(df_calipso['calipso_date'])
@@ -78,10 +78,10 @@ for date in df_neo_dates:
         continue
 
 gdf_benth['geom'] = gdf_benth.geometry.centroid
-gdf_benth['geom'] = gdf_benth.apply(lambda row: Point(row.geometry.y, row.geometry.x), axis=1)
+gdf_benth['geom'] = gdf_benth.apply(lambda row: Point(row.geom.x, row.geom.y), axis=1)
 
-gdf_geo['geom'] = gdf_geo.geometry.centroid
-gdf_geo['geom'] = gdf_geo.apply(lambda row: Point(row.geometry.y, row.geometry.x), axis=1)
+# gdf_geo['geom'] = gdf_geo.geometry.centroid
+# gdf_geo['geom'] = gdf_geo.apply(lambda row: Point(row.geom.y, row.geom.x), axis=1)
 
 
 gdf_main.drop(['dist'], axis=1, inplace=True)
@@ -89,21 +89,8 @@ gdf_main_benth = ckdnearest(gdf_main, gdf_benth)
 gdf_main_benth.reset_index(inplace=True)
 # gdf_total = ckdnearest(gdf_main_benth, gdf_geo)
 
-gdf_main_benth.to_csv('florida_100_full.csv')
+# gdf_main_benth.to_csv('florida_200_full.csv')
 
 # gdf_main_benth.to_sql('florida_100_full', engine, index=False, if_exists='replace')
 gdf_classified = gdf_main_benth[gdf_main_benth.dist < 0.5]
-gdf_classified.to_csv('florida_100_classified.csv')
-
-
-gdf_class_test = gdf_classified.copy()
-gdf_class_test = gdf_class_test[gdf_class_test['class'] != 'Seagrass']
-
-dummies = gdf_class_test['class'].str.get_dummies()
-dummies.columns = ['is_' + col for col in dummies.columns]
-gdf_class_test = pd.concat([gdf_class_test, dummies], axis=1)
-
-gdf_class_test.drop(['index', 'calipso_date', 'Date', 'Long', 'Lat', 'geom', 'geometry', 'dist',
-                     'neo_file_date', 'Latitude', 'Longitude', 'is_Rock', 'is_Rubble', 'is_Sand', 'class'],
-                    axis=1, inplace=True)
-
+gdf_classified.to_csv('florida_200_classified.csv')
