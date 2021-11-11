@@ -75,7 +75,7 @@ class ModelCompetition:
 
 if __name__ == "__main__":
     print("Importing Data")
-    gdf_class_test = pd.read_csv('florida_200_classified.csv')
+    gdf_class_test = pd.read_csv('florida_100_classified.csv')
     gdf_class_test = gdf_class_test[gdf_class_test['class'] != 'Seagrass']
     print("Creating dummy variables")
     dummies = gdf_class_test['class'].str.get_dummies()

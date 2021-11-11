@@ -28,15 +28,19 @@ server.start()
 local_port = str(server.local_bind_port)'''
 engine = create_engine('postgresql://{}@{}:{}/{}'.format("jmattingly31", "127.0.0.1",
                                                          5432, "coral_data"))
-gdf_benth = geopandas.read_file('Florida/Benthic-Map/benthic.shp')
-# gdf_geo = geopandas.read_file('Florida/Geomorphic-Map/geomorphic.shp')
+# gdf_benth = geopandas.read_file('GBR/Benthic-Map/benthic.shp')
+# gdf_geo = geopandas.read_file('GBR/Geomorphic-Map/geomorphic.shp')
 
 df_calipso = geopandas.read_postgis("""
-SELECT * FROM florida_200
+SELECT * FROM manta_200
+""", con=engine, geom_col='geom')
+
+df_manta = geopandas.read_postgis("""
+SELECT * FROM manta_tow_data
 """, con=engine, geom_col='geom')
 
 df_calipso['calipso_date'] = pd.to_datetime(df_calipso['calipso_date'])
-df_calipso['neo_file_date'] = pd.to_datetime(df_calipso['neo_file_date'])
+df_calipso['manta_date'] = pd.to_datetime(df_calipso['manta_date'])
 
 df_neo = geopandas.read_postgis("SELECT * FROM neo_data", con=engine, geom_col='geom')
 df_neo['Date'] = pd.to_datetime(df_neo['Date'])
@@ -60,9 +64,10 @@ def ckdnearest(gdA, gdB):
 
 
 df_neo_dates = df_neo['Date'].unique()
+df_manta_dates = df_manta['sample_date'].unique()
 
 gdf_main = None
-
+print('Processing NEO Dates')
 for date in df_neo_dates:
     print(date)
     try:
@@ -77,20 +82,35 @@ for date in df_neo_dates:
         print("Error processing {}".format(date))
         continue
 
-gdf_benth['geom'] = gdf_benth.geometry.centroid
-gdf_benth['geom'] = gdf_benth.apply(lambda row: Point(row.geom.x, row.geom.y), axis=1)
+print('Processing Manta Tow Data')
+for date in df_manta_dates:
+    print(date)
+    try:
+        temp_calipso = df_calipso[df_calipso.manta_date == date]
+        temp_manta = df_manta[df_manta.sample_date == date]
+        temp_gdf = ckdnearest(temp_calipso, temp_manta)
+        if gdf_main is None:
+            gdf_main = temp_gdf
+        else:
+            gdf_main = gdf_main.append(temp_gdf)
+    except:
+        print("Error processing {}".format(date))
+        continue
+
+# gdf_benth['geom'] = gdf_benth.geometry.centroid
+# gdf_benth['geom'] = gdf_benth.apply(lambda row: Point(row.geom.x, row.geom.y), axis=1)
 
 # gdf_geo['geom'] = gdf_geo.geometry.centroid
 # gdf_geo['geom'] = gdf_geo.apply(lambda row: Point(row.geom.y, row.geom.x), axis=1)
 
 
-gdf_main.drop(['dist'], axis=1, inplace=True)
-gdf_main_benth = ckdnearest(gdf_main, gdf_benth)
-gdf_main_benth.reset_index(inplace=True)
+# gdf_main.drop(['dist'], axis=1, inplace=True)
+# gdf_main_benth = ckdnearest(gdf_main, gdf_benth)
+# gdf_main_benth.reset_index(inplace=True)
 # gdf_total = ckdnearest(gdf_main_benth, gdf_geo)
 
 # gdf_main_benth.to_csv('florida_200_full.csv')
 
 # gdf_main_benth.to_sql('florida_100_full', engine, index=False, if_exists='replace')
-gdf_classified = gdf_main_benth[gdf_main_benth.dist < 0.5]
-gdf_classified.to_csv('florida_200_classified.csv')
+gdf_classified = gdf_main[gdf_main.dist < 0.5]
+gdf_classified.to_csv('manta_200_classified.csv')
