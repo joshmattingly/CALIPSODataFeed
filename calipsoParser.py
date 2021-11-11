@@ -15,7 +15,7 @@ def process_sat(root):
     for file in dirListing:
         df = None
         print('{}'.format(file))
-        if "CAL_LID_L1-Standard-V4-10.2020-06-29T04-38-26ZD_Subset.h5" in file:
+        if ".h5" in file:
             year, month, day = re.findall(r'\.(\d{4})\-(\d{2})\-(\d{2})', file)[0]
             f = h5py.File('{}{}'.format(root, file), 'r')
 

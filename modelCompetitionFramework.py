@@ -13,8 +13,8 @@ from sklearn.model_selection import cross_val_score
 from sklearn.metrics import accuracy_score
 
 from sqlalchemy import create_engine
-from sshtunnel import SSHTunnelForwarder
-import getpass
+# from sshtunnel import SSHTunnelForwarder
+# import getpass
 
 
 class ModelCompetition:
@@ -97,38 +97,39 @@ if __name__ == "__main__":
     print(modelChlor.scores)
     # [RF: 0.9066769367981514, XGBF: 0.7470709855272226]
     print("Running actual competition")
-    modelComp = ModelCompetition(gdf_class_test)
-    modelComp.run_competition()
-    print(modelComp.scores)
-    # .[RF: 0.7942189970405805, XGBF: 0.7893947379089472]
 
-    print("Calculating Feature Importance")
-    result = permutation_importance(
-        modelComp.clf, modelComp.X_test, modelComp.y_test, n_repeats=10, random_state=42, n_jobs=-1
-    )
+    bin_starts = list(reversed(range(0, 200, 25)))
+    acc_collector = []
+    for n in bin_starts:
+        if n == 0:
+            n = 1
+        print("Running competitions for n = {}".format(n))
+        gdf_subset = pd.concat([gdf_class_test[['Land_Water_Mask']], gdf_class_test.iloc[:, n:]], axis=1)
+        modelComp = ModelCompetition(gdf_subset)
+        modelComp.run_competition()
+        print(modelComp.scores)
+        acc_collector.append([n, modelComp.scores])
+        print("Calculating Feature Importance")
+        result = permutation_importance(
+            modelComp.clf, modelComp.X_test, modelComp.y_test, n_repeats=10, random_state=42, n_jobs=-1
+        )
 
-    forest_importances = pd.Series(result.importances_mean, index=modelComp.clf.feature_names_in_)
+        forest_importances = pd.Series(result.importances_mean, index=modelComp.clf.feature_names_in_)
 
-    fig, ax = plt.subplots()
-    forest_importances.plot.bar(ax=ax)
-    ax.set_title("Feature importances using permutation on full model")
-    ax.set_ylabel("Mean accuracy decrease")
-    fig.tight_layout()
-    plt.show()
-    fig.set_size_inches(8, 6)
-    fig.savefig("all_features.png", dpi=100)
+        fig, ax = plt.subplots()
+        forest_importances.plot.bar(ax=ax)
+        ax.set_title("Feature importances using permutation on full model")
+        ax.set_ylabel("Mean accuracy decrease")
+        fig.tight_layout()
+        plt.show()
+        fig.set_size_inches(8, 6)
+        fig.savefig("all_features - {}.png".format(n), dpi=100)
 
-    top_features = forest_importances.nlargest(5)
-    fig, ax = plt.subplots()
-    top_features.plot.bar(ax=ax)
-    ax.set_title("Top CALIPSO Features")
-    ax.set_ylabel("Mean decrease in impurity")
-    fig.set_size_inches(8, 6)
-    fig.savefig("top_features.png", dpi=100)
-
-    print("Running competition with top five features only.")
-    gdf_class_simple = gdf_class_test[['Land_Water_Mask', '562', '563', '564', '578', 'is_Coral/Algae']]
-    modelSimple = ModelCompetition(gdf_class_simple)
-    modelSimple.run_competition()
-    print(modelSimple.scores)
-    # [RF: 0.7880163781570519, XGBF: 0.789637977865164]
+        top_features = forest_importances.nlargest(5)
+        fig, ax = plt.subplots()
+        top_features.plot.bar(ax=ax)
+        ax.set_title("Top CALIPSO Features")
+        ax.set_ylabel("Mean decrease in impurity")
+        fig.set_size_inches(8, 6)
+        fig.savefig("top_features - {}.png".format(n), dpi=100)
+    print(acc_collector)
