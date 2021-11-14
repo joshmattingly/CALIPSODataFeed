@@ -31,10 +31,12 @@ engine = create_engine('postgresql://{}@{}:{}/{}'.format("jmattingly31", "127.0.
 # gdf_benth = geopandas.read_file('GBR/Benthic-Map/benthic.shp')
 # gdf_geo = geopandas.read_file('GBR/Geomorphic-Map/geomorphic.shp')
 
+print("Importing CALIPSO data")
 df_calipso = geopandas.read_postgis("""
 SELECT * FROM manta_200
 """, con=engine, geom_col='geom')
 
+print("Importing AIM data")
 df_manta = geopandas.read_postgis("""
 SELECT * FROM manta_tow_data
 """, con=engine, geom_col='geom')
@@ -42,6 +44,7 @@ SELECT * FROM manta_tow_data
 df_calipso['calipso_date'] = pd.to_datetime(df_calipso['calipso_date'])
 df_calipso['manta_date'] = pd.to_datetime(df_calipso['manta_date'])
 
+print("Importing NEO Data")
 df_neo = geopandas.read_postgis("SELECT * FROM neo_data", con=engine, geom_col='geom')
 df_neo['Date'] = pd.to_datetime(df_neo['Date'])
 
