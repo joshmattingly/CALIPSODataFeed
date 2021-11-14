@@ -16,7 +16,7 @@ warnings.filterwarnings("ignore")
 
 
 def create_gdf(df):
-    gdf = geopandas.GeoDataFrame(df, geometry=geopandas.points_from_xy(df.Lat, df.Long),
+    gdf = geopandas.GeoDataFrame(df, geometry=geopandas.points_from_xy(df.Long, df.Lat),
                                  crs="+proj=sinu +lon_0=0 +x_0=0 +y_0=0 +a=6371007.181 +b=6371007.181 +units=m +no_defs")
     gdf.drop(['Lat', 'Long'], axis=1, inplace=True)
     return gdf
@@ -109,11 +109,11 @@ def process_sat(root, manta=False):
                 try:
                     gdf_calipso_manta.rename(columns={'geometry': 'geom'}, inplace=True)
                 except:
-                    # print('failed to change column name')
+                    print('failed to change column name')
                     continue
 
                 gdf_manta_final = None
-                
+
                 for idx, row in df_manta_dates.iterrows():
                     date = row['sample_date']
                     # print(date)
@@ -128,7 +128,11 @@ def process_sat(root, manta=False):
                     except:
                         # print("Error processing {}".format(date))
                         continue
-                gdf_manta_final = gdf_manta_final[gdf_manta_final.dist <= 0.5]
+
+                # match manta tow data without temporal alignment.
+                # gdf_manta_final = ckdnearest(gdf_calipso_manta, gdf_manta)
+
+                gdf_manta_final = gdf_manta_final[gdf_manta_final.dist <= 1.]
                 # gdf_manta_final.drop(['geom', 'geometry'], axis=1, inplace=True)
                 gdf_manta_final.rename(columns={'Longitude': 'Long', 'Latitude': 'Lat'}, inplace=True)
                 gdf_manta_final.drop(['geom', 'geometry'], axis=1, inplace=True)
