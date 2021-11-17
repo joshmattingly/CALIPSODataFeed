@@ -18,7 +18,7 @@ from sqlalchemy import create_engine
 
 
 class ModelCompetition:
-    def __init__(self, data, tunnel=False, manta=False, manta_dist=0.5, manta_coral_thresh=10, sample_size=6, seed=42):
+    def __init__(self, data, tunnel=False, manta=False, manta_dist=0.5, sample_size=6, seed=42):
         self.response_variable = "is_Coral/Algae"
         self.seed = seed
         self.normalize = True
@@ -27,7 +27,7 @@ class ModelCompetition:
         self.importances = None
         self.std = []
         self.clf = None
-        # TODO: Convert train/test initializers to postgis tables
+
         '''
         username = input("Username: ")
         password = getpass.getpass(prompt='Password: ', stream=None)
@@ -46,16 +46,16 @@ class ModelCompetition:
             engine = create_engine('postgresql://{}@localhost:5432/coral_data'.format(username))
         '''
         # TODO: Manta tow coral regression algorithms
+        # TODO: Optimize manta tow mean coral, distance, and date difference values
         # TODO: Add PCA transformation
 
         if manta:
             self.manta_dist = manta_dist
-            self.manta_coral_tresh = manta_coral_thresh
             self.sample_size = sample_size
             # create boolean flag based on distance
             # create boolean flag based on average number of coral
-            data = data.assign(y=np.where((data['dist'] <= self.manta_dist)
-                                                 & (data['mean_live_coral'] >= self.manta_coral_tresh), 1, 0))
+            data = data.assign(y=np.where((data['dist'] <= self.manta_dist) &
+                                          (data['date_diff'] <= 14), 1, 0))
 
             data.drop(['Date',
                        'Long',
@@ -91,8 +91,8 @@ class ModelCompetition:
             self.X = data.loc[:, data.columns != 'y']
             self.X_norm = (self.X-self.X.mean())/self.X.std()
             self.y = data['y']
-            self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(self.X_norm, self.y,
-                                                                                    test_size=0.3, random_state=self.seed)
+            self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(self.X_norm, self.y, test_size=0.3,
+                                                                                    random_state=self.seed)
 
     def random_forest(self):
         self.clf = RandomForestClassifier(random_state=self.seed)
@@ -178,6 +178,10 @@ if __name__ == "__main__":
     print(acc_collector)
 
     print("Running GBR Test")
-    gdf_manta_test = pd.read_csv('coral_data_public_gbr_200.csv')
-    modelGBR = ModelCompetition(gdf_manta_test, manta=True)
+    manta_test = pd.read_csv('coral_data_public_gbr_200.csv')
+    manta_test['Date'] = pd.to_datetime(manta_test['Date'])
+    manta_test['sample_date'] = pd.to_datetime(manta_test['sample_date'])
+    manta_test['date_diff'] = np.abs((manta_test['Date'] - manta_test['sample_date']).dt.days)
+    modelGBR = ModelCompetition(manta_test, manta=True, sample_size=8)
     modelGBR.run_competition()
+    print(modelGBR.scores)
