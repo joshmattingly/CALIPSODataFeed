@@ -18,7 +18,7 @@ from sqlalchemy import create_engine
 
 
 class ModelCompetition:
-    def __init__(self, data, tunnel=False, seed=42):
+    def __init__(self, data, tunnel=False, manta=False, manta_dist=0.5, manta_coral_thresh=10, sample_size=6, seed=42):
         self.response_variable = "is_Coral/Algae"
         self.seed = seed
         self.normalize = True
@@ -45,11 +45,54 @@ class ModelCompetition:
         else:
             engine = create_engine('postgresql://{}@localhost:5432/coral_data'.format(username))
         '''
-        self.X = data.loc[:, data.columns != 'is_Coral/Algae']
-        self.X_norm = (self.X-self.X.mean())/self.X.std()
-        self.y = data['is_Coral/Algae']
-        self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(self.X_norm, self.y,
-                                                                                test_size=0.3, random_state=self.seed)
+        # TODO: Manta tow coral regression algorithms
+        # TODO: Add PCA transformation
+
+        if manta:
+            self.manta_dist = manta_dist
+            self.manta_coral_tresh = manta_coral_thresh
+            self.sample_size = sample_size
+            # create boolean flag based on distance
+            # create boolean flag based on average number of coral
+            data = data.assign(y=np.where((data['dist'] <= self.manta_dist)
+                                                 & (data['mean_live_coral'] >= self.manta_coral_tresh), 1, 0))
+
+            data.drop(['Date',
+                       'Long',
+                       'Lat',
+                       'geom',
+                       'sample_date',
+                       'sector',
+                       'shelf',
+                       'reef_name',
+                       'reef_id',
+                       'p_code',
+                       'visit_no',
+                       'median_live_coral',
+                       'median_soft_coral',
+                       'median_dead_coral',
+                       'mean_live_coral',
+                       'mean_dead_coral',
+                       'total_cots',
+                       'mean_cots_per_tow',
+                       'tows',
+                       'dist'], axis=1, inplace=True)
+            nrows = len(data)
+            data = data.groupby('y').apply(lambda x: x.sample(n=int(nrows/self.sample_size))).reset_index(drop=True)
+
+            self.X = data.loc[:, data.columns != 'y']
+            self.X_norm = (self.X-self.X.mean())/self.X.std()
+            self.y = data['y']
+            self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(self.X_norm, self.y,
+                                                                                    test_size=0.3,
+                                                                                    random_state=self.seed)
+        else:
+            data.columns = ['y' if x=='is_Coral/Algae' else x for x in data.columns]
+            self.X = data.loc[:, data.columns != 'y']
+            self.X_norm = (self.X-self.X.mean())/self.X.std()
+            self.y = data['y']
+            self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(self.X_norm, self.y,
+                                                                                    test_size=0.3, random_state=self.seed)
 
     def random_forest(self):
         self.clf = RandomForestClassifier(random_state=self.seed)
@@ -74,8 +117,8 @@ class ModelCompetition:
 
 
 if __name__ == "__main__":
-    print("Importing Data")
-    gdf_class_test = pd.read_csv('florida_100_classified.csv')
+    print("Importing Florida Data")
+    gdf_class_test = pd.read_csv('florida_200_classified.csv')
     gdf_class_test = gdf_class_test[gdf_class_test['class'] != 'Seagrass']
     print("Creating dummy variables")
     dummies = gdf_class_test['class'].str.get_dummies()
@@ -133,3 +176,8 @@ if __name__ == "__main__":
         fig.set_size_inches(8, 6)
         fig.savefig("top_features - {}.png".format(n), dpi=100)
     print(acc_collector)
+
+    print("Running GBR Test")
+    gdf_manta_test = pd.read_csv('coral_data_public_gbr_200.csv')
+    modelGBR = ModelCompetition(gdf_manta_test, manta=True)
+    modelGBR.run_competition()
