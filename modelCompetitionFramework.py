@@ -3,6 +3,10 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.inspection import permutation_importance
 import matplotlib.pyplot as plt
 
+import plotly
+import plotly.plotly as py
+import plotly.graph_objs as go
+
 import pandas as pd
 import numpy as np
 from numpy import mean
@@ -13,6 +17,7 @@ from sklearn.model_selection import cross_val_score
 from sklearn.metrics import accuracy_score
 
 from sqlalchemy import create_engine
+
 # from sshtunnel import SSHTunnelForwarder
 # import getpass
 
@@ -78,18 +83,18 @@ class ModelCompetition:
                        'tows',
                        'dist'], axis=1, inplace=True)
             nrows = len(data)
-            data = data.groupby('y').apply(lambda x: x.sample(n=int(nrows/self.sample_size))).reset_index(drop=True)
+            data = data.groupby('y').apply(lambda x: x.sample(n=int(nrows / self.sample_size))).reset_index(drop=True)
 
             self.X = data.loc[:, data.columns != 'y']
-            self.X_norm = (self.X-self.X.mean())/self.X.std()
+            self.X_norm = (self.X - self.X.mean()) / self.X.std()
             self.y = data['y']
             self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(self.X_norm, self.y,
                                                                                     test_size=0.3,
                                                                                     random_state=self.seed)
         else:
-            data.columns = ['y' if x=='is_Coral/Algae' else x for x in data.columns]
+            data.columns = ['y' if x == 'is_Coral/Algae' else x for x in data.columns]
             self.X = data.loc[:, data.columns != 'y']
-            self.X_norm = (self.X-self.X.mean())/self.X.std()
+            self.X_norm = (self.X - self.X.mean()) / self.X.std()
             self.y = data['y']
             self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(self.X_norm, self.y, test_size=0.3,
                                                                                     random_state=self.seed)
@@ -185,3 +190,31 @@ if __name__ == "__main__":
     modelGBR = ModelCompetition(manta_test, manta=True, sample_size=8)
     modelGBR.run_competition()
     print(modelGBR.scores)
+
+    # TODO: Run model on entire CALIPSO dataset
+
+    #
+    df_manta_full_run = manta_test.copy()
+    df_manta_full_run.drop(['Date',
+                            'Long',
+                            'Lat',
+                            'geom',
+                            'sample_date',
+                            'sector',
+                            'shelf',
+                            'reef_name',
+                            'reef_id',
+                            'p_code',
+                            'visit_no',
+                            'median_live_coral',
+                            'median_soft_coral',
+                            'median_dead_coral',
+                            'mean_live_coral',
+                            'mean_dead_coral',
+                            'total_cots',
+                            'mean_cots_per_tow',
+                            'tows',
+                            'dist'], axis=1, inplace=True)
+    yhat_full = modelGBR.clf.predict(df_manta_full_run)
+    manta_test['yhat'] = yhat_full
+    manta_test.to_csv('manta_tow_with_predictions.csv')
