@@ -3,14 +3,8 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.inspection import permutation_importance
 import matplotlib.pyplot as plt
 
-import plotly
-import plotly.plotly as py
-import plotly.graph_objs as go
-
 import pandas as pd
 import numpy as np
-from numpy import mean
-from numpy import std
 from xgboost import XGBRFClassifier
 from sklearn.model_selection import RepeatedStratifiedKFold
 from sklearn.model_selection import cross_val_score

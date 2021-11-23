@@ -58,3 +58,8 @@ if __name__ == "__main__":
     root = 'neo_data'
     process_neo(root, bound_top, bound_left, bound_bottom, bound_right)
     # df_neo.to_csv('neo_data_2014_2020.csv')
+
+    bound_top = -7.11834
+    bound_left = 140.00251
+    bound_right = 155.01872
+    bound_bottom = -24.5081

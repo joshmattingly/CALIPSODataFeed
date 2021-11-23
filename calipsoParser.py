@@ -138,35 +138,37 @@ def process_sat(root, manta=False):
                 gdf_manta_final.drop(['geom', 'geometry'], axis=1, inplace=True)
                 gdf_manta_final.to_sql('calipso_data_gbr', engine, index=False, if_exists='append')
                 # return gdf_manta_final
-    # return df
+            else:
+                # handle non-GBR files (i.e. Florida)
+                return df
 
 
 if __name__ == '__main__':
 
     hostname = "localhost"
     dbname = "coral_data"
-    # uname = "root"
-    # pwd = getpass()
-    # engine = create_engine('postgresql://jmattingly31@localhost:5432/coral_data')
-    calipso_folder = './2021317092632_63059/'
-    # gdf = process_sat(calipso_folder, manta=True)
-    process_sat(calipso_folder, manta=True)
-    # df = process_sat(calipso_folder, manta=True)
-    # df.sort_values('Date', inplace=True)
-    # df_neo_dates = pd.read_sql('SELECT a."Date" FROM neo_data a GROUP BY a."Date";', con=engine)
-    # df_neo_dates.sort_values('Date', inplace=True)
-    # df_neo_dates['NEO_date'] = df_neo_dates['Date']
-    # A20203292020336.L3m_8D_CHL_chlor_a_4km.nc
-    # df = pd.merge_asof(left=df, right=df_neo_dates, on='Date', direction='forward')
+    uname = "root"
+    pwd = getpass()
+    engine = create_engine('postgresql://jmattingly31@localhost:5432/coral_data')
+    gbr_folder = './2021317092632_63059/'
+    process_sat(gbr_folder, manta=True)
 
-    #df['year'] = df.NEO_date.dt.year.values
-    #df['to_date'] = df.apply(lambda row: str(row['NEO_date'].day_of_year).zfill(3), axis=1)
-    #df['from_date'] = df.apply(lambda row: str(row['NEO_date'].day_of_year-8).zfill(3), axis=1)
-    #df['NEO_file'] = df.apply(lambda row: "A{}{}{}{}.L3m_8D_CHL_chlor_a_4km.nc".format(row['year'],
-    #                                                                                   row['from_date'],
-    #                                                                                   row['year'],
-    #                                                                                   row['to_date']),
-    #                          axis=1)
-    # from_date = (to_date - 8).zfill(3)
-    # df.to_csv('calipso.csv')
-    # df.to_sql('calipso_data_gbr', engine, index=False, if_exists='replace')
+    # TODO: point this at actual Florida data
+    florida_folder = './2021317092632_63059/'
+    df = process_sat(florida_folder, manta=False)
+    df.sort_values('Date', inplace=True)
+
+    df_neo_dates = pd.read_sql('SELECT a."Date" FROM neo_data a GROUP BY a."Date";', con=engine)
+    df_neo_dates.sort_values('Date', inplace=True)
+    df_neo_dates['NEO_date'] = df_neo_dates['Date']
+    df = pd.merge_asof(left=df, right=df_neo_dates, on='Date', direction='forward')
+
+    df['year'] = df.NEO_date.dt.year.values
+    df['to_date'] = df.apply(lambda row: str(row['NEO_date'].day_of_year).zfill(3), axis=1)
+    df['from_date'] = df.apply(lambda row: str(row['NEO_date'].day_of_year-8).zfill(3), axis=1)
+    df['NEO_file'] = df.apply(lambda row: "A{}{}{}{}.L3m_8D_CHL_chlor_a_4km.nc".format(row['year'],
+                                                                                       row['from_date'],
+                                                                                       row['year'],
+                                                                                       row['to_date']),
+                              axis=1)
+    df.to_sql('calipso_data_gbr', engine, index=False, if_exists='replace')
