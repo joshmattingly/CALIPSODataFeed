@@ -9,6 +9,7 @@ from xgboost import XGBRFClassifier
 from sklearn.model_selection import RepeatedStratifiedKFold
 from sklearn.model_selection import cross_val_score
 from sklearn.metrics import accuracy_score
+from sklearn.metrics import confusion_matrix
 
 from sqlalchemy import create_engine
 
@@ -102,7 +103,7 @@ class ModelCompetition:
         return y_hat
 
     def xgboost_forest(self):
-        model = XGBRFClassifier(n_estimators=100)
+        model = XGBRFClassifier()
         model.fit(self.X_train, self.y_train)
         y_hat = model.predict(self.X_test)
         return y_hat
@@ -212,3 +213,12 @@ if __name__ == "__main__":
     yhat_full = modelGBR.clf.predict(df_manta_full_run)
     manta_test['yhat'] = yhat_full
     manta_test.to_csv('manta_tow_with_predictions.csv')
+
+    modelComp = ModelCompetition(gdf_class_test)
+    y_hat = modelComp.random_forest()
+    tn, fp, fn, tp = confusion_matrix(modelChlor.y_test, y_hat).ravel()
+    print(tn, fp, fn, tp)
+
+    y_hat_xgb = modelComp.xgboost_forest()
+    tn, fp, fn, tp = confusion_matrix(modelChlor.y_test, y_hat_xgb).ravel()
+    print(tn, fp, fn, tp)

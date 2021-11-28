@@ -50,6 +50,7 @@ def process_neo(root, top, left, bottom, right):
 
 
 if __name__ == "__main__":
+    # Florida
     bound_top = 26.405982971191
     bound_left = -82.882919311523
     bound_right = -79.850692749023
@@ -58,7 +59,8 @@ if __name__ == "__main__":
     root = 'neo_data'
     process_neo(root, bound_top, bound_left, bound_bottom, bound_right)
     # df_neo.to_csv('neo_data_2014_2020.csv')
-
+    # Great Barrier Reef
+    # TODO: Add test for GBR clorophyll
     bound_top = -7.11834
     bound_left = 140.00251
     bound_right = 155.01872
