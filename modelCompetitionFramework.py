@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 import pandas as pd
 import numpy as np
-from xgboost import XGBRFClassifier
+from xgboost import XGBRFClassifier, XGBClassifier
 from sklearn.model_selection import RepeatedStratifiedKFold
 from sklearn.model_selection import cross_val_score
 from sklearn.metrics import accuracy_score
@@ -108,11 +108,17 @@ class ModelCompetition:
         y_hat = model.predict(self.X_test)
         return y_hat
 
+    def xgboost_classifier(self):
+        model = XGBClassifier()
+        model.fit(self.X_train, self.y_train)
+        y_hat = model.predict(self.X_test)
+        return y_hat
+
     def run_competition(self):
         model_rf = self.random_forest()
         model_xgrf = self.xgboost_forest()
-
-        for model in [model_rf, model_xgrf]:
+        model_xgbc = self.xgboost_classifier()
+        for model in [model_rf, model_xgrf, model_xgbc]:
             self.scores.append(accuracy_score(self.y_test, model))
 
 
@@ -138,7 +144,7 @@ if __name__ == "__main__":
     modelChlor = ModelCompetition(gdf_chlor)
     modelChlor.run_competition()
     print(modelChlor.scores)
-    # [RF: 0.9066769367981514, XGBF: 0.7470709855272226]
+    # [0.9070012567397738, 0.7470709855272226, 0.845339927838813]
     print("Running actual competition")
 
     bin_starts = list(reversed(range(0, 200, 25)))
@@ -216,9 +222,21 @@ if __name__ == "__main__":
 
     modelComp = ModelCompetition(gdf_class_test)
     y_hat = modelComp.random_forest()
-    tn, fp, fn, tp = confusion_matrix(modelChlor.y_test, y_hat).ravel()
+    tn, fp, fn, tp = confusion_matrix(modelComp.y_test, y_hat).ravel()
     print(tn, fp, fn, tp)
+    accuracy_score(modelComp.y_test, y_hat)
 
-    y_hat_xgb = modelComp.xgboost_forest()
-    tn, fp, fn, tp = confusion_matrix(modelChlor.y_test, y_hat_xgb).ravel()
+    y_hat_xgb = modelComp.xgboost_classifier()
+    tn, fp, fn, tp = confusion_matrix(modelComp.y_test, y_hat_xgb).ravel()
     print(tn, fp, fn, tp)
+    accuracy_score(modelComp.y_test, y_hat_xgb)
+
+    y_hat_gbr_forest = modelGBR.random_forest()
+    tn, fp, fn, tp = confusion_matrix(modelGBR.y_test, y_hat_gbr_forest).ravel()
+    print(tn, fp, fn, tp)
+    accuracy_score(modelGBR.y_test, y_hat_gbr_forest)
+
+    y_hat_gbr_xgb = modelGBR.xgboost_forest()
+    tn, fp, fn, tp = confusion_matrix(modelGBR.y_test, y_hat_gbr_xgb).ravel()
+    print(tn, fp, fn, tp)
+    accuracy_score(modelGBR.y_test, y_hat_gbr_xgb)
