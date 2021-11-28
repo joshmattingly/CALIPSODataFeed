@@ -236,7 +236,7 @@ if __name__ == "__main__":
     print(tn, fp, fn, tp)
     accuracy_score(modelGBR.y_test, y_hat_gbr_forest)
 
-    y_hat_gbr_xgb = modelGBR.xgboost_forest()
+    y_hat_gbr_xgb = modelGBR.xgboost_classifier()
     tn, fp, fn, tp = confusion_matrix(modelGBR.y_test, y_hat_gbr_xgb).ravel()
     print(tn, fp, fn, tp)
     accuracy_score(modelGBR.y_test, y_hat_gbr_xgb)
